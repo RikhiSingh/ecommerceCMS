@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { Modal } from "@/components/ui/modal";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 const formSchema = z.object({
     // atleast 1 character is required to name the store
@@ -23,7 +25,7 @@ export const StoreModal = () => {
         },
     });
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) =>{
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         // TODO: Create Store
         console.log(values);
     }
@@ -35,7 +37,26 @@ export const StoreModal = () => {
             isOpen={storeModal.isOpen}
             onClose={storeModal.onClose}
         >
-            Future Create Store Form
+            <div>
+                <div className="space-y-4 py-2 pb-4">
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)}>
+                            <FormField
+                                control={form.control}
+                                name="name"
+                                render={({field}) =>(
+                                    <FormItem>
+                                        <FormLabel>Name</FormLabel>
+                                        <FormControl>
+                                            <Input placeholder="E-Commerce" {...field}/>
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+                        </form>
+                    </Form>
+                </div>
+            </div>
         </Modal>
     );
 };
