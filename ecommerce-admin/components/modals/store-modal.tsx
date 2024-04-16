@@ -28,6 +28,7 @@ export const StoreModal = () => {
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         // TODO: Create Store
+        // log the store name entered
         console.log(values);
     }
 
