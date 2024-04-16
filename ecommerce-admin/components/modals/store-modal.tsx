@@ -16,8 +16,17 @@ export const StoreModal = () => {
     const storeModal = useStoreModal();
 
     const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema)
-    })
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            // default name
+            name: "",
+        },
+    });
+
+    const onSubmit = async (values: z.infer<typeof formSchema>) =>{
+        // TODO: Create Store
+        console.log(values);
+    }
 
     return (
         <Modal
