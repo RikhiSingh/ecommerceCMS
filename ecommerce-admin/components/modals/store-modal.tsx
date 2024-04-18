@@ -43,7 +43,13 @@ export const StoreModal = () => {
 
             const response = await axios.post('api/stores', values);
 
-            toast.success("Store created successfully.");
+            // immediate redirect to dashboard after creation
+            // not using router from nextnavigation as we wanna do whole page refresh
+            // sp 100% loaded to database (no sync issue)
+            window.location.assign(`/${response.data.id}`);
+
+            // notification not required as we will be going to dashboadrd immediately after store creation
+            //toast.success("Store created successfully.");
         } catch (error) {
             toast.error("Something went wrong. Please contact your system admin.");
         } finally {
