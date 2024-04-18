@@ -5,6 +5,8 @@ cuurently starts fro root and does validation on success goes to dashboard then 
 after clearing db npx prisma generate
 npx prisma db push
 
+for <code> <CommandItem> </code> you need "disablePointerEvents={true}" to make it selectable and opacity to 100 (command.tsx)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
