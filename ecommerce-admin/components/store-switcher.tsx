@@ -54,7 +54,7 @@ export default function StoreSwitcher({
             <PopoverTrigger asChild>
                 <Button variant="outline" size="sm" role="combobox" aria-expanded={open} aria-label="Select a Store" className={cn("w-[200px] justify-between", className)}>
                     <StoreIcon className="mr-2 h-4 w-4" />
-                    Current Store
+                    {currentStore?.label}
                     <ChevronsUpDown className="ml-auto h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
@@ -66,6 +66,7 @@ export default function StoreSwitcher({
                         <CommandGroup heading="Stores">
                             {formattedItems.map((store) => (
                                 <CommandItem
+                                    disablePointerEvents={true}
                                     key={store.value}
                                     onSelect={() => onStoreSelect(store)}
                                     className="text-sm"
