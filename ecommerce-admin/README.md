@@ -1,5 +1,10 @@
 Used ClerkUI, react, next, tailwind, zod, zadixUI, zustand, typescript, react-hook-form, prisma, PlanetScale, mongoDB atlas, axion, npm-hot-toast
 
+cuurently starts fro root and does validation on success goes to dashboard then storeId then its layout
+
+after clearing db npx prisma generate
+npx prisma db push
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

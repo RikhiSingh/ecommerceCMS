@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import prismadb from "@/lib/prismadb";
 
-export default async function Dashboard({
+export default async function DashboardLayout({
     children,
     // params is in what store Id will be stored
     params
