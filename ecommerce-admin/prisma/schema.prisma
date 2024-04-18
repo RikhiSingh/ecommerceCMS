@@ -14,3 +14,10 @@ datasource db {
 // relationMode = "prisma"  
 }
 
+model Store {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  userID    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
