@@ -14,6 +14,12 @@ export function MainNav({
 
     const routes = [
         {
+            href: `/${params.storeId}`,
+            // make the the setting that get loaded are only for that storeId
+            label: 'Dashboard',
+            active: pathname === `/${params.storeId}`,
+        },
+        {
             href: `/${params.storeId}/settings`,
             // make the the setting that get loaded are only for that storeId
             label: 'Settings',
