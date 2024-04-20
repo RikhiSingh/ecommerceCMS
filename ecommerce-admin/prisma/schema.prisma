@@ -9,13 +9,13 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "mysql"
   url      = env("DATABASE_URL")
-  // relationMode = "prisma"  
+  relationMode = "prisma"  
 }
 
 model Store {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  id         String      @id @default(uuid())
   name       String
   userId     String
   billboards Billboard[] @relation("StoreToBillboard")
@@ -24,8 +24,8 @@ model Store {
 }
 
 model Billboard {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  storeId   String   @db.ObjectId
+  id        String   @id @default(uuid())
+  storeId   String   
   store     Store    @relation("StoreToBillboard", fields: [storeId], references: [id])
   label     String
   imageUrl  String
@@ -33,4 +33,4 @@ model Billboard {
   updatedAt DateTime @updatedAt
 
   @@index([storeId])
-}
+} 
