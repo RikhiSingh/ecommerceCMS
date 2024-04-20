@@ -52,29 +52,29 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
 
     const onSubmit = async (data: SettingsFormValues) => {
         // console.log(data);
-        try{
+        try {
             setLoading(true);
             await axios.patch(`/api/stores/${params.storeId}`, data);
             router.refresh();
             toast.success("Store updated.");
-        }catch(error){
+        } catch (error) {
             toast.error("Something went wrong.Please contact network administrator");
-        }finally{
+        } finally {
             setLoading(false);
         }
     }
 
     // to delete
-    const onDelete = async () =>{
-        try{
+    const onDelete = async () => {
+        try {
             setLoading(true)
             await axios.delete(`/api/stores/${params.storeId}`)
             router.refresh();
             router.push("/")
             toast.success("Store deleted.");
-        } catch(error){
+        } catch (error) {
             toast.error("Make sure you remove all the products and categories first.");
-        }finally{
+        } finally {
             setLoading(false)
             setOpen(false)
         }
@@ -82,12 +82,12 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
 
     return (
         <>
-        <AlertModal 
-            isOpen={open}
-            onClose={() => setOpen(false)}
-            onConfirm={onDelete}
-            loading={loading}
-        />
+            <AlertModal
+                isOpen={open}
+                onClose={() => setOpen(false)}
+                onConfirm={onDelete}
+                loading={loading}
+            />
             <div className="flex items-center justify-between">
                 <Heading
                     title="Settings"
@@ -126,7 +126,11 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                 </form>
             </Form>
             <Separator />
-            <ApiAlert title="test" description="test-description"/>
+            <ApiAlert
+                title="NEXT_PUBLIC_API_URL"
+                description={`${origin}/api/${params.storeId}`}
+                variant="public"
+            />
         </>
     )
 }

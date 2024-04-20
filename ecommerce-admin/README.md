@@ -7,6 +7,28 @@ npx prisma db push
 
 for <code> <CommandItem> </code> you need "disablePointerEvents={true}" to make it selectable and opacity to 100 (command.tsx)
 
+if public network you will get the error
+<code>
+Error: 
+Invalid `prisma.store.findFirst()` invocation:
+
+
+Error in connector: Error creating a database connection. (Kind: An error occurred during DNS resolution: proto error: io error: A socket operation was attempted to an unreachable network. (os error 10051), labels: {})
+
+Source
+app\(root)\layout.tsx (17:18) @ async SetupLayout
+
+  15 |
+  16 |     // load first store available
+> 17 |     const store= await prismadb.store.findFirst({
+     |                  ^
+  18 |         where:{
+  19 |             userId
+  20 |         }
+  </code>
+
+Current IP Address not added. You will not be able to connect to databases from this address.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
