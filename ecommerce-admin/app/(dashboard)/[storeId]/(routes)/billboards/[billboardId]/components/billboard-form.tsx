@@ -47,7 +47,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     // for alert modal
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
-    
+
     const title = initialData ? "Edit Billboard" : "Create Billboard";
     const description = initialData ? "Edit a Billboard" : "Add a new billboard";
     const toast = initialData ? "Billboard Updated" : "Billboard created";
@@ -104,14 +104,16 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                     title={title}
                     description={description}
                 />
-                <Button
-                    disabled={loading}
-                    variant="destructive"
-                    size="icon"
-                    onClick={() => setOpen(true)}
-                >
-                    <Trash className="h-4 w-4" />
-                </Button>
+                {initialData && (
+                    <Button
+                        disabled={loading}
+                        variant="destructive"
+                        size="icon"
+                        onClick={() => setOpen(true)}
+                    >
+                        <Trash className="h-4 w-4" />
+                    </Button>
+                )}
             </div>
             <Separator />
             <Form {...form}>
