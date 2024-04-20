@@ -1,4 +1,4 @@
-Used ClerkUI, react, next, tailwind, zod, zadixUI, zustand, typescript, react-hook-form, prisma, PlanetScale, mongoDB atlas, axion, npm-hot-toast, MYSQL, cloudinary
+Used ClerkUI, react, next, tailwind, zod, zadixUI, zustand, typescript, react-hook-form, prisma, PlanetScale, mongoDB atlas, axion, npm-hot-toast, MYSQL, cloudinary, next-coudinary
 
 cuurently starts fro root and does validation on success goes to dashboard then storeId then its layout
 
