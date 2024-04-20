@@ -28,7 +28,6 @@ export async function GET(
     }
 }
 
-
 // used to update the store
 export async function PATCH(
     req: Request,
