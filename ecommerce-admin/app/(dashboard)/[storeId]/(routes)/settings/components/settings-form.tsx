@@ -24,6 +24,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { ApiAlert } from "@/components/ui/api-alert";
+import { useOrigin } from "@/hooks/use-origin";
 
 interface SettingsFormProps {
     initialData: Store;
@@ -40,6 +41,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
 }) => {
     const params = useParams();
     const router = useRouter();
+    const origin = useOrigin();
 
     // for alert modal
     const [open, setOpen] = useState(false);
@@ -128,6 +130,7 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
             <Separator />
             <ApiAlert
                 title="NEXT_PUBLIC_API_URL"
+                // not use origin if not imported from useorigin ensure no hydration error
                 description={`${origin}/api/${params.storeId}`}
                 variant="public"
             />
