@@ -13,7 +13,7 @@ interface BillboardClientProps{
 }
 
 export const BillboardClient: React.FC<BillboardClientProps> = ({
-    data
+    data    
 }) => {
 
     const router = useRouter();
