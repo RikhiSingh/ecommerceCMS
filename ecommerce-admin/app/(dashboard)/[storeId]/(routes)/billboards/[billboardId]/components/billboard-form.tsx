@@ -132,7 +132,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                         />
                     </div>
                     <Button disabled={loading} className="ml-auto" type="submit">
-                        {action}.fix
+                        {action}
                     </Button>
                 </form>
             </Form>
