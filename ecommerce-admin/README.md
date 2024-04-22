@@ -25,6 +25,7 @@ On First Begin
 2. database url MySQL/ PlanetScale (current models work for mysql type of databases only can be modified for mongo but not efficient (structurally))
 3. Cloudinary cloud name
 4. also need setting>upload>adduploadpreset>as unsigned
+   Name from there required inside image-upload under uploadPreset
 
 The app starts from from root and does validation on success goes to dashboard then storeId then its layout
 and works comparatively same
