@@ -20,7 +20,7 @@ Used following packages
 19. react-tables,
 20. date-fns
 
-On First Begin
+On First Begin (required in .env)
 1. Need account for Clerk secret key
 2. database url MySQL/ PlanetScale (current models work for mysql type of databases only can be modified for mongo but not efficient (structurally))
 3. Cloudinary cloud name
