@@ -23,15 +23,16 @@ Used following packages
 On First Begin (required in .env)
 1. Need account for Clerk secret key
 2. database url MySQL/ PlanetScale (current models work for mysql type of databases only can be modified for mongo but not efficient (structurally))
+  Then => any db change "npx prisma generate" and then "npx prisma db push"
 3. Cloudinary cloud name
 4. also need setting>upload>adduploadpreset>as unsigned
    Name from there required inside image-upload under uploadPreset
+  NOTE: If mongo : Current IP Address not added. You will not be able to connect to databases from this address.
 
 The app starts from from root and does validation on success goes to dashboard then storeId then its layout
 and works comparatively same
 
-after clearing db npx prisma generate
-npx prisma db push
+
 
 for <code> <CommandItem> </code> you need "disablePointerEvents={true}" to make it selectable and opacity to 100 (command.tsx)
 
@@ -56,7 +57,7 @@ app\(root)\layout.tsx (17:18) @ async SetupLayout
   20 |         }
   </code>
 
-Current IP Address not added. You will not be able to connect to databases from this address.
+
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
