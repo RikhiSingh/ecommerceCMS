@@ -40,7 +40,6 @@ if public network you will get the error
 Error: 
 Invalid `prisma.store.findFirst()` invocation:
 
-have signed upload from setting from cloudify in image-upload under uploadPreset
 
 
 Error in connector: Error creating a database connection. (Kind: An error occurred during DNS resolution: proto error: io error: A socket operation was attempted to an unreachable network. (os error 10051), labels: {})
