@@ -1,5 +1,5 @@
 Used following packages
-1. ClerkUI
+1. Clerk (Authentication)
 2. react
 3. next
 4. tailwind
