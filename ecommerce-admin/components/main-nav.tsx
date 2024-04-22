@@ -29,6 +29,11 @@ export function MainNav({
             active: pathname === `/${params.storeId}/categories`,
         },
         {
+            href: `/${params.storeId}/sizes`,
+            label: 'Sizes',
+            active: pathname === `/${params.storeId}/sizes`,
+        },
+        {
             href: `/${params.storeId}/settings`,
             // make the the setting that get loaded are only for that storeId
             label: 'Settings',
