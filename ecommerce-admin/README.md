@@ -1,18 +1,24 @@
 Used following packages
 1. ClerkUI
-2. react, 
-3. next, 
-4. tailwind, 
-5. zod, 
-6. zadixUI,
-7. zustand,
-8. typescript,
-9. react-hook-form,
-10. prisma,
-11. PlanetScale,
-12. mongoDB atlas,
-13. axion, 
-14. npm-hot-toast, MYSQL, cloudinary, next-coudinary, tanstack, react-tables, date-fns
+2. react
+3. next
+4. tailwind
+5. zod
+6. zadixUI
+7. zustand
+8. typescript
+9. react-hook-form
+10. prisma
+11. PlanetScale
+12. mongoDB atlas
+13. axion
+14. npm-hot-toast
+15. MYSQL
+16. cloudinary
+17. next-coudinary
+18. tanstack
+19. react-tables,
+20. date-fns
 
 cuurently starts fro root and does validation on success goes to dashboard then storeId then its layout
 
