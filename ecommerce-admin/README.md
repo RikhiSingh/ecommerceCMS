@@ -20,7 +20,8 @@ Used following packages
 19. react-tables,
 20. date-fns
 
-cuurently starts fro root and does validation on success goes to dashboard then storeId then its layout
+The app starts from from root and does validation on success goes to dashboard then storeId then its layout
+and works comparatively same
 
 after clearing db npx prisma generate
 npx prisma db push
