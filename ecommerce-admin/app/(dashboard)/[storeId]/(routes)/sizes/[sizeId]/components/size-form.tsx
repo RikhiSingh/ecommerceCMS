@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { Billboard } from "@prisma/client";
+import { Size } from "@prisma/client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Trash } from "lucide-react";
@@ -23,21 +23,20 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { useOrigin } from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 
 const formSchema = z.object({
-    label: z.string().min(1),
-    imageUrl: z.string().min(1),
+    name: z.string().min(1),
+    value: z.string().min(1),
 });
 
-type BillboardFormValues = z.infer<typeof formSchema>;
+type SizeFormValues = z.infer<typeof formSchema>;
 
-interface BillboardFormProps {
-    initialData: Billboard | null;
+interface SizeFormProps {
+    initialData: Size | null;
 }
 
-export const BillboardForm: React.FC<BillboardFormProps> = ({
+export const SizeForm: React.FC<SizeFormProps> = ({
     initialData
 }) => {
     const params = useParams();
@@ -52,15 +51,15 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     const toastMessage = initialData ? "Billboard Updated" : "Billboard created";
     const action = initialData ? "Save changes" : "Create";
 
-    const form = useForm<BillboardFormValues>({
+    const form = useForm<SizeFormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: initialData || {
-            label: '',
-            imageUrl: ''
+            name: '',
+            value: ''
         }
     });
 
-    const onSubmit = async (data: BillboardFormValues) => {
+    const onSubmit = async (data: SizeFormValues) => {
         // console.log(data);
         try {
             setLoading(true);
