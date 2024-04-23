@@ -3,14 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { CellAction } from "./cell-action"
 
-export type SizeColumn = {
+export type ColorColumn = {
   id: string
   name: string
   value: string
   createdAt: string
 }
 
-export const columns: ColumnDef<SizeColumn>[] = [
+export const columns: ColumnDef<ColorColumn>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -18,6 +18,15 @@ export const columns: ColumnDef<SizeColumn>[] = [
   {
     accessorKey: "value",
     header: "Value",
+    cell: ({ row }) => (
+      <div className="flex items-center gap-x-2">
+        {row.original.value}
+        <div
+          className="h-6 w-6 rounded-full border"
+          style={{ backgroundColor: row.original.value }}
+        />
+      </div>
+    )
   },
   {
     accessorKey: "createdAt",
