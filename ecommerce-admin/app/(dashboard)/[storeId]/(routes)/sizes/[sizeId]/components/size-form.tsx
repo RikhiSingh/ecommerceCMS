@@ -46,9 +46,9 @@ export const SizeForm: React.FC<SizeFormProps> = ({
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const title = initialData ? "Edit Billboard" : "Create Billboard";
-    const description = initialData ? "Edit a Billboard" : "Add a new billboard";
-    const toastMessage = initialData ? "Billboard Updated" : "Billboard created";
+    const title = initialData ? "Edit Size" : "Create Size";
+    const description = initialData ? "Edit a Size" : "Add a new size";
+    const toastMessage = initialData ? "Size Updated" : "Size created";
     const action = initialData ? "Save changes" : "Create";
 
     const form = useForm<SizeFormValues>({
