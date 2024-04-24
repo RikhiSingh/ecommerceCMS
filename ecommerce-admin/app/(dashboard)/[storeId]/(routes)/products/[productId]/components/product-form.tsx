@@ -17,6 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import {
     Form,
     FormControl,
+    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -25,6 +26,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
 import ImageUpload from "@/components/ui/image-upload";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
     name: z.string().min(1),
@@ -197,7 +199,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 <FormItem>
                                     <FormLabel>Category</FormLabel>
                                     <Select
-                                        disabled={loading}  
+                                        disabled={loading}
                                         onValueChange={field.onChange}
                                         value={field.value}
                                         defaultValue={field.value}
@@ -232,7 +234,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 <FormItem>
                                     <FormLabel>Size</FormLabel>
                                     <Select
-                                        disabled={loading}  
+                                        disabled={loading}
                                         onValueChange={field.onChange}
                                         value={field.value}
                                         defaultValue={field.value}
@@ -267,7 +269,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 <FormItem>
                                     <FormLabel>Color</FormLabel>
                                     <Select
-                                        disabled={loading}  
+                                        disabled={loading}
                                         onValueChange={field.onChange}
                                         value={field.value}
                                         defaultValue={field.value}
@@ -292,6 +294,52 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                         </SelectContent>
                                     </Select>
                                     <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="isFeatured"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                    <FormControl>
+                                        <Checkbox 
+                                            checked={field.value}
+                                            // @ts-ignore
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <div className="space-y-1 leading-none">
+                                        <FormLabel>
+                                            Featured
+                                        </FormLabel>
+                                        <FormDescription>
+                                            This product will appear on the Home Page
+                                        </FormDescription>
+                                    </div>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="isArchived"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                                    <FormControl>
+                                        <Checkbox 
+                                            checked={field.value}
+                                            // @ts-ignore
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <div className="space-y-1 leading-none">
+                                        <FormLabel>
+                                            Archived
+                                        </FormLabel>
+                                        <FormDescription>
+                                            This product will not appear anywhere in the Store
+                                        </FormDescription>
+                                    </div>
                                 </FormItem>
                             )}
                         />
