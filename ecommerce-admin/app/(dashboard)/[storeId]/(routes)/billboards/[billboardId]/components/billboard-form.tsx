@@ -73,7 +73,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
             router.push(`/${params.storeId}/billboards`)
             toast.success(toastMessage);
         } catch (error) {
-            toast.error("Something went wrong.Please contact network administrator");
+            toast.error("Something went wrong. Please contact network administrator");
         } finally {
             setLoading(false);
         }

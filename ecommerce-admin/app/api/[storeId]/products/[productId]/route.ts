@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(
     req: Request,
-    { params }: { params: {  productId: string } }
+    { params }: { params: { productId: string } }
 ) {
     try {
 
@@ -17,11 +17,11 @@ export async function GET(
             where: {
                 id: params.productId,
             },
-            include:{
+            include: {
                 images: true,
                 category: true,
                 size: true,
-                color:true
+                color: true
             }
         });
 
@@ -107,22 +107,24 @@ export async function PATCH(
                 categoryId,
                 colorId,
                 sizeId,
-                images:{
-                    deleteMany:{}
+                images: {
+                    deleteMany: {}
                 },
                 isFeatured,
                 isArchived,
             }
         });
 
-        const  product = await prismadb.product.update({
-            where:{
+        const product = await prismadb.product.update({
+            where: {
                 id: params.productId
             },
-            data:{
-                images:{
-                    createMany:{
-                        ...images.map((image:{url:string}) =>image),
+            data: {
+                images: {
+                    createMany: {
+                        data: [
+                            ...images.map((image: { url: string }) => image),
+                        ]
                     }
                 }
             }
