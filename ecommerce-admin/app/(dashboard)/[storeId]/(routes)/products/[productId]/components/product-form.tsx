@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { Billboard } from "@prisma/client";
+import { Image, Product } from "@prisma/client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Trash } from "lucide-react";
@@ -23,21 +23,28 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
-import { useOrigin } from "@/hooks/use-origin";
 import ImageUpload from "@/components/ui/image-upload";
 
 const formSchema = z.object({
-    label: z.string().min(1),
-    imageUrl: z.string().min(1),
+    name: z.string().min(1),
+    images: z.object({ url: z.string() }).array(),
+    price: z.coerce.number().min(1),
+    categoryId: z.string().min(1),
+    colorId: z.string().min(1),
+    sizeId: z.string().min(1),
+    isFeatured: z.boolean().default(false).optional(),
+    isArchived: z.boolean().default(false).optional(),
 });
 
-type BillboardFormValues = z.infer<typeof formSchema>;
+type ProductFormValues = z.infer<typeof formSchema>;
 
-interface BillboardFormProps {
-    initialData: Billboard | null;
+interface ProductFormProps {
+    initialData: Product & {
+        images: Image[]
+    } | null;
 }
 
-export const BillboardForm: React.FC<BillboardFormProps> = ({
+export const ProductForm: React.FC<ProductFormProps> = ({
     initialData
 }) => {
     const params = useParams();
@@ -47,27 +54,36 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const title = initialData ? "Edit Billboard" : "Create Billboard";
-    const description = initialData ? "Edit a Billboard" : "Add a new billboard";
-    const toastMessage = initialData ? "Billboard Updated" : "Billboard created";
+    const title = initialData ? "Edit Product" : "Create Product";
+    const description = initialData ? "Edit a Product" : "Add a new product";
+    const toastMessage = initialData ? "Product Updated" : "Product created";
     const action = initialData ? "Save changes" : "Create";
 
-    const form = useForm<BillboardFormValues>({
+    const form = useForm<ProductFormValues>({
         resolver: zodResolver(formSchema),
-        defaultValues: initialData || {
-            label: '',
-            imageUrl: ''
+        defaultValues: initialData ? {
+            ...initialData,
+            price: parseFloat(String(initialData?.price)),
+        } : {
+            name: '',
+            images: [],
+            price: 0,
+            categoryId: '',
+            colorId: '',
+            sizeId: '',
+            isFeatured: false,
+            isArchived: false,
         }
     });
 
-    const onSubmit = async (data: BillboardFormValues) => {
+    const onSubmit = async (data: ProductFormValues) => {
         // console.log(data);
         try {
             setLoading(true);
             if (initialData) {
                 await axios.patch(`/api/${params.storeId}/billboards/${params.billboardId}`, data);
             } else {
-                await axios.post(`/api/${params.storeId}/billboards`, data);                
+                await axios.post(`/api/${params.storeId}/billboards`, data);
             }
             router.refresh();
             router.push(`/${params.storeId}/billboards`)
@@ -124,16 +140,16 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                     <FormField
                         control={form.control}
-                        name="imageUrl"
+                        name="images"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>BackgroundImage</FormLabel>
+                                <FormLabel>Images</FormLabel>
                                 <FormControl>
                                     <ImageUpload
-                                        value={field.value ? [field.value] : []}
+                                        value={field.value.map((image) => image.url)}
                                         disabled={loading}
-                                        onChange={(url) => field.onChange(url)}
-                                        onRemove={() => field.onChange("")}
+                                        onChange={(url) => field.onChange([...field.value, { url }])}
+                                        onRemove={(url) => field.onChange([...field.value.filter((current)=>current.url !== url)])}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -143,12 +159,25 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({
                     <div className="grid grid-cols-3 gap-8">
                         <FormField
                             control={form.control}
-                            name="label"
+                            name="name"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Label</FormLabel>
+                                    <FormLabel>Name</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Billboard Label" {...field} />
+                                        <Input disabled={loading} placeholder="Product Name" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="price"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Price</FormLabel>
+                                    <FormControl>
+                                        <Input type="number" disabled={loading} placeholder="9.99" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
