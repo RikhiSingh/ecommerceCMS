@@ -297,7 +297,10 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 </FormItem>
                             )}
                         />
-                        <FormField
+                        
+                    </div>
+                    <div className="grid grid-cols-3 gap-8">
+                    <FormField
                             control={form.control}
                             name="isFeatured"
                             render={({ field }) => (
