@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { Image, Product } from "@prisma/client";
+import { Category, Color, Image, Product, Size } from "@prisma/client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Trash } from "lucide-react";
@@ -10,6 +10,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useParams, useRouter } from "next/navigation";
 
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Heading } from "@/components/ui/heading";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -42,10 +43,16 @@ interface ProductFormProps {
     initialData: Product & {
         images: Image[]
     } | null;
+    categories: Category[];
+    colors: Color[];
+    sizes: Size[];
 }
 
 export const ProductForm: React.FC<ProductFormProps> = ({
-    initialData
+    initialData,
+    categories,
+    colors,
+    sizes
 }) => {
     const params = useParams();
     const router = useRouter();
@@ -149,7 +156,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                         value={field.value.map((image) => image.url)}
                                         disabled={loading}
                                         onChange={(url) => field.onChange([...field.value, { url }])}
-                                        onRemove={(url) => field.onChange([...field.value.filter((current)=>current.url !== url)])}
+                                        onRemove={(url) => field.onChange([...field.value.filter((current) => current.url !== url)])}
                                     />
                                 </FormControl>
                                 <FormMessage />
@@ -179,6 +186,111 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                     <FormControl>
                                         <Input type="number" disabled={loading} placeholder="9.99" {...field} />
                                     </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="categoryId"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Category</FormLabel>
+                                    <Select
+                                        disabled={loading}  
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue
+                                                    defaultValue={field.value}
+                                                    placeholder="Select a category"
+                                                />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {categories.map((category) => (
+                                                <SelectItem
+                                                    key={category.id}
+                                                    value={category.id}
+                                                >
+                                                    {category.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="sizeId"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Size</FormLabel>
+                                    <Select
+                                        disabled={loading}  
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue
+                                                    defaultValue={field.value}
+                                                    placeholder="Select a size"
+                                                />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {sizes.map((size) => (
+                                                <SelectItem
+                                                    key={size.id}
+                                                    value={size.id}
+                                                >
+                                                    {size.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="colorId"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Color</FormLabel>
+                                    <Select
+                                        disabled={loading}  
+                                        onValueChange={field.onChange}
+                                        value={field.value}
+                                        defaultValue={field.value}
+                                    >
+                                        <FormControl>
+                                            <SelectTrigger>
+                                                <SelectValue
+                                                    defaultValue={field.value}
+                                                    placeholder="Select a color"
+                                                />
+                                            </SelectTrigger>
+                                        </FormControl>
+                                        <SelectContent>
+                                            {colors.map((color) => (
+                                                <SelectItem
+                                                    key={color.id}
+                                                    value={color.id}
+                                                >
+                                                    {color.name}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
                                     <FormMessage />
                                 </FormItem>
                             )}
