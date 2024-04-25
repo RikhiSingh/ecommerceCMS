@@ -26,8 +26,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({
                     <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                         <Gallery images={product.images} />
                         <div className="mt-10 px-4 sm:mt-16 ms:px-0 lg:mt-0">
-                            {/* info */}
-                            info
+                            <Info data={product} />
                         </div>
                     </div>
                     <hr className="my-10" />
