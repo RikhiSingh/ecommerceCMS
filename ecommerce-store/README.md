@@ -1,3 +1,11 @@
+IMP:
+
+in env paste NEXT_PUBLIC_API_URL from store setting;
+in app>routes>page.tsx =>
+const billboard = await getBillboard("")
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+copy billboard id and paste it here!!!
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

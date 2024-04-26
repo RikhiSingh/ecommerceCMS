@@ -9,7 +9,8 @@ export const revalidate = 0;
 const HomePage = async () => {
     // this is the landing page so show the featured
     const products = await getProducts({ isFeatured: true });
-    const billboard = await getBillboard("1aaa49cc-b8ab-4bd5-a528-316bedeba31f");
+    // copy billboard Id and paste it here
+    const billboard = await getBillboard("444a0ed1-3dd4-4f47-a5df-1f62b6dc02a7");
 
     return (
         <Container>
