@@ -2,7 +2,7 @@
 
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
-import { X } from "lucide-re    act";
+import { X } from "lucide-react";
 
 import IconButton from "@/components/ui/icon-button";
 
@@ -53,4 +53,6 @@ const Modal: React.FC<ModalProps> = ({
             </Dialog>
         </Transition>
     )
-}
+};
+
+export default Modal;
