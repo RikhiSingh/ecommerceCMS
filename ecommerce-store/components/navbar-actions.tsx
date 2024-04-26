@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ShoppingBag } from "lucide-react";
 
 import Button from "@/components/ui/button";
+import useCart from "@/hooks/use-cart";
 
 const NavbarActions = () => {
     // to prevent hydration
@@ -12,6 +13,8 @@ const NavbarActions = () => {
     useEffect(() =>{
         setIsMounted(true);
     }, []);
+
+    const cart = useCart();
 
     if(!isMounted){
         return null;
@@ -25,7 +28,7 @@ const NavbarActions = () => {
                     color="white"
                 />
                 <span className="ml-2 text-sm font-medium text-white">
-                    0
+                    {cart.items.length}
                 </span>
             </Button>
         </div>
