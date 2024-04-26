@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { Plus } from "lucide-react";
 
 import { Color, Size } from "@/types";
 import Button from "@/components/ui/button";
-import { Plus } from "lucide-react";
 
 interface MobileFiltersProps{
     sizes: Size[];
@@ -26,6 +27,13 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({
                 Filters
                 <Plus size={20}/>
             </Button>
+
+            <Dialog open={open} as="div" className="relative z-40 lg:hidden" onClose={onClose}>
+                {/* Background */}
+                <div className="fixed inset-0 bg-black bg-opacity-25" />
+
+                {/* Dialog position */}
+            </Dialog>
         </>
      );
 }
