@@ -5,6 +5,7 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
 import { formatter } from "@/lib/utils";
+import { getTotalRevenue } from "@/actions/get-total-revenue";
 
 interface DashboardPageProps {
     params: { storeId: string }
@@ -33,7 +34,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({
                         </CardHeader>
                         <CardContent>
                             <div className="text-2xl font-bold">
-                                {formatter.format(100)}
+                                {formatter.format(totalRevenue)}
                             </div>
                         </CardContent>
                     </Card>
