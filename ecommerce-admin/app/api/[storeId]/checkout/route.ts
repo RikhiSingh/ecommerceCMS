@@ -77,15 +77,15 @@ export async function POST(
             enabled: true
         },
         // the useeffect will understand its success
-        success_url:`${process.env.FRONTEND_STORE_URL}/cart?success=1`,
-        cancel_url:`${process.env.FRONTEND_STORE_URL}/cart?cancelled=1`,
-        metadata:{
+        success_url: `${process.env.FRONTEND_STORE_URL}/cart?success=1`,
+        cancel_url: `${process.env.FRONTEND_STORE_URL}/cart?cancelled=1`,
+        metadata: {
             // use the metadata to locate the order and change status to paid
             orderId: order.id
         }
     });
 
-    return NextResponse.json({url:session.url},{
-        headers:corsHeader
+    return NextResponse.json({ url: session.url }, {
+        headers: corsHeader
     });
 };
