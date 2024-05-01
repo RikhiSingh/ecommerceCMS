@@ -20,6 +20,18 @@ Used following packages
 19. react-tables,
 20. date-fns
 
+Estimate System Req (used by the app itself)
+1. Database:
+  - RAM: 500MB to 800MB
+  - Last performance report: 
+   - 95% efficiency 
+    - Room for improvement ~1-2% 
+   - 98% efficacy
+    - Room for improvement ~0.2-0.3%
+2. Storage Requirement:
+  - Admin: 100MB - 600MB
+  - Frontend: Staring from 100MB
+
 On First Begin (required in .env)
 1. Need account for Clerk secret key
 2. database url MySQL/ PlanetScale (current models work for mysql type of databases only can be modified for mongo but not efficient (structurally))
