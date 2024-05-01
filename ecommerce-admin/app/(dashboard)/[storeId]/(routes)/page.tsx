@@ -77,6 +77,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
+                        {/* pass the graph data */}
                         <Overview data={graphData} />
                     </CardContent>
                 </Card>
