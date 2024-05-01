@@ -3,11 +3,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreditCard, DollarSign, Package } from "lucide-react";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
-import prismadb from "@/lib/prismadb";
 import { formatter } from "@/lib/utils";
 import { getTotalRevenue } from "@/actions/get-total-revenue";
 import { getSalesCount } from "@/actions/get-sales-count";
 import { getStockCount } from "@/actions/get-stock-count";
+import { Overview } from "@/components/overview";
+import { getGraphRevenue } from "@/actions/get-graph-revenue";
 
 interface DashboardPageProps {
     params: { storeId: string }
@@ -20,6 +21,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({
     const totalRevenue = await getTotalRevenue(params.storeId);
     const salesCount = await getSalesCount(params.storeId);
     const stockCount = await getStockCount(params.storeId);
+    const graphData = await getGraphRevenue(params.storeId);
 
     return (
         <div className="flex-col">
@@ -75,7 +77,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="pl-2">
-                        <Overview data={[]} />
+                        <Overview data={graphData} />
                     </CardContent>
                 </Card>
             </div>
