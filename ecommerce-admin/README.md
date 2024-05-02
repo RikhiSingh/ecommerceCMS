@@ -33,6 +33,7 @@ Estimate System Req (used by the app itself)
   - Frontend: Staring from 100MB
 
 On First Begin (required in .env)
+- Create buffer store so can create new stores in future
 1. Need account for Clerk secret key
 2. database url MySQL/ PlanetScale (current models work for mysql type of databases only can be modified for mongo but not efficient (structurally))
   Then => any prisma.schema or the database itself change "npx prisma generate" and then "npx prisma db push"
