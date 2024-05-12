@@ -1,11 +1,11 @@
 interface HeadingProps {
     title: string;
-    description: string;
+    titleDescription: string;
 }
 
 export const Heading: React.FC<HeadingProps> = ({
     title,
-    description
+    titleDescription
 }) =>{
     return(
         <div>
@@ -13,7 +13,7 @@ export const Heading: React.FC<HeadingProps> = ({
                 {title}
             </h2>
             <p className="text-sm text-muted-foreground">
-                {description}
+                {titleDescription}
             </p>
         </div>
     )

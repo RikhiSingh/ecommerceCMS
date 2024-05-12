@@ -30,6 +30,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
     name: z.string().min(1),
+    description: z.string().min(1),
     images: z.object({ url: z.string() }).array(),
     price: z.coerce.number().min(1),
     categoryId: z.string().min(1),
@@ -64,7 +65,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     const [loading, setLoading] = useState(false);
 
     const title = initialData ? "Edit Product" : "Create Product";
-    const description = initialData ? "Edit a Product" : "Add a new product";
+    const titleDescription = initialData ? "Edit a Product" : "Add a new product";
     const toastMessage = initialData ? "Product Updated" : "Product created";
     const action = initialData ? "Save changes" : "Create";
 
@@ -75,6 +76,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             price: parseFloat(String(initialData?.price)),
         } : {
             name: '',
+            description: '',
             images: [],
             price: 0,
             categoryId: '',
@@ -86,13 +88,13 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     });
 
     const onSubmit = async (data: ProductFormValues) => {
-        // console.log(data);
+        console.log(data);
         try {
             setLoading(true);
             if (initialData) {
                 await axios.patch(`/api/${params.storeId}/products/${params.productId}`, data);
             } else {
-                await axios.post(`/api/${params.storeId}/products`, data);                
+                await axios.post(`/api/${params.storeId}/products`, data);
             }
             router.refresh();
             router.push(`/${params.storeId}/products`)
@@ -131,7 +133,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             <div className="flex items-center justify-between">
                 <Heading
                     title={title}
-                    description={description}
+                    titleDescription={titleDescription}
                 />
                 {initialData && (
                     <Button
@@ -147,6 +149,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             <Separator />
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
+                    <FormField
+                        control={form.control}
+                        name="description"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Description</FormLabel>
+                                <FormControl>
+                                    <Input disabled={loading} placeholder="Product Description" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
                     <FormField
                         control={form.control}
                         name="images"
@@ -297,16 +312,16 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 </FormItem>
                             )}
                         />
-                        
+
                     </div>
                     <div className="grid grid-cols-3 gap-8">
-                    <FormField
+                        <FormField
                             control={form.control}
                             name="isFeatured"
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                                     <FormControl>
-                                        <Checkbox 
+                                        <Checkbox
                                             checked={field.value}
                                             // @ts-ignore
                                             onCheckedChange={field.onChange}
@@ -329,7 +344,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                             render={({ field }) => (
                                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                                     <FormControl>
-                                        <Checkbox 
+                                        <Checkbox
                                             checked={field.value}
                                             // @ts-ignore
                                             onCheckedChange={field.onChange}
