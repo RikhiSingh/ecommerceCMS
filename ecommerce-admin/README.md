@@ -19,6 +19,7 @@ Used following packages
 18. tanstack
 19. react-tables,
 20. date-fns
+21. ShadCN
 
 Estimate System Req (used by the app itself)
 1. Database:
