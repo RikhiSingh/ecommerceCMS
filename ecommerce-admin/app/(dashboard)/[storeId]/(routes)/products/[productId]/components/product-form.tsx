@@ -151,19 +151,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
                     <FormField
                         control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Description</FormLabel>
-                                <FormControl>
-                                    <Input disabled={loading} placeholder="Product Description" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
                         name="images"
                         render={({ field }) => (
                             <FormItem>
@@ -242,6 +229,23 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 </FormItem>
                             )}
                         />
+                    </div>
+                    <div>
+                        <FormField
+                            control={form.control}
+                            name="description"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Description</FormLabel>
+                                    <FormControl>
+                                        <Input disabled={loading} placeholder="Product Description" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+                    <div className="grid grid-cols-3 gap-8">
                         <FormField
                             control={form.control}
                             name="sizeId"
@@ -366,7 +370,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         {action}
                     </Button>
                 </form>
-            </Form>
+            </Form >
         </>
     )
 }
