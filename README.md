@@ -1,4 +1,4 @@
-# Duolingo Clone
+# Ecommerce CMS
 
 This repository contains a comprehensive eCommerce CMS built using modern web technologies. It includes both an admin interface for managing the store and a frontend store for customers.
 
