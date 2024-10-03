@@ -54,6 +54,12 @@ export function MainNav({
             label: 'Settings',
             active: pathname === `/${params.storeId}/settings`,
         },
+        {
+            href: `/${params.storeId}/ai`,
+            label: 'CommunoCart AI',
+            active: pathname === `/${params.storeId}/ai`,
+            special: true, // Mark as a special route for different coloring
+        },
     ];
 
     return (
@@ -63,7 +69,8 @@ export function MainNav({
                     key={route.href}
                     href={route.href}
                     className={cn("text-sm font-medium transition-colors hover:text-primary",
-                        route.active ? "text-black dark:text-white" : "text-muted-foreground"
+                        route.active ? "text-black dark:text-white" : "text-muted-foreground",
+                        route.special ? "pl-5 text-yellow-500 font-bold" : "",
                     )}
                 >
                     {route.label}

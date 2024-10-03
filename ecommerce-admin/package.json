@@ -26,6 +26,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "leaflet": "^1.9.4",
     "lucide-react": "^0.368.0",
     "mongodb": "^6.5.0",
     "next": "^14.2.1",
@@ -35,6 +36,8 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.3",
     "react-hot-toast": "^2.4.1",
+    "react-leaflet": "^4.2.1",
+    "react-spinners": "^0.14.1",
     "recharts": "^2.12.6",
     "stripe": "^15.4.0",
     "tailwind-merge": "^2.3.0",
@@ -44,6 +47,7 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@types/leaflet": "^1.9.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
