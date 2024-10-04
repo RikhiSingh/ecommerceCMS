@@ -7,6 +7,7 @@ import LocationComponent from './location-component';
 import WeatherComponent from './weather-component';
 import { ClipLoader } from 'react-spinners';
 import { Calendar } from '@/components/ui/calendar';
+import CurrentDateTimeComponent from './day-and-date';
 
 const TopCards: React.FC = () => {
   const [location, setLocation] = useState<{ latitude: number | null; longitude: number | null }>({
@@ -115,8 +116,8 @@ const TopCards: React.FC = () => {
                 className="rounded-md border w-[300px] flex items-center justify-center"
               />
             </div>
-            <Separator/>
-            
+            <Separator />
+            <CurrentDateTimeComponent />
           </CardContent>
         </Card>
       </div >
