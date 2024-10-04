@@ -176,7 +176,7 @@ const WeatherComponent: React.FC<WeatherComponentProps> = ({ latitude, longitude
               return (
                 <div
                   key={index}
-                  className='bg-white rounded-lg shadow p-4 flex flex-col items-center'
+                  className='rounded-lg shadow p-4 flex flex-col items-center border border-white/10'
                 >
                   <p className='text-lg font-medium'>{dayOfWeek}</p>
                   <Image src={iconUrl} alt='Weather icon' className='w-16 h-16' width={100} height={100} />

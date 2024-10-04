@@ -60,6 +60,13 @@ export function MainNav({
             active: pathname === `/${params.storeId}/ai`,
             special: true, // Mark as a special route for different coloring
         },
+        {
+            href: `/${params.storeId}/courses`,
+            // make the the setting that get loaded are only for that storeId
+            label: 'Courses',
+            active: pathname === `/${params.storeId}/courses`,
+            special: true, // Mark as a special route for different coloring
+        },
     ];
 
     return (
@@ -70,7 +77,7 @@ export function MainNav({
                     href={route.href}
                     className={cn("text-sm font-medium transition-colors hover:text-primary",
                         route.active ? "text-black dark:text-white" : "text-muted-foreground",
-                        route.special ? "pl-5 text-yellow-500 font-bold" : "",
+                        route.special ? "pl-5 text-yellow-500 font-bold text-md" : "",
                     )}
                 >
                     {route.label}
