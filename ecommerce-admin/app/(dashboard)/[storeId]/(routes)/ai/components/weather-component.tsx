@@ -45,7 +45,8 @@ const WeatherComponent: React.FC<WeatherComponentProps> = ({ latitude, longitude
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        const apiKey = "555f963bfef982bef29a63fcb0e5edf6";
+        const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
+        console.log(apiKey);
 
         // Fetch current weather data
         const currentWeatherResponse = await fetch(
