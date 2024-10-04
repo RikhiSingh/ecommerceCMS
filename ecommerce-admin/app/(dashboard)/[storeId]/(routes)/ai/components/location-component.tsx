@@ -50,7 +50,7 @@ const LocationComponent: React.FC<LocationComponentProps> = ({ position, address
 
     return (
       <div>
-        <MapContainer center={mapPosition} zoom={14} style={{ height: '400px', width: '100%' }}>
+        <MapContainer className='z-0' center={mapPosition} zoom={14} style={{ height: '400px', width: '100%' }}>
           <TileLayer
             attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
             url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'

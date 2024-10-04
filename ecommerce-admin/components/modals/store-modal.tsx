@@ -51,7 +51,7 @@ export const StoreModal = () => {
             // notification not required as we will be going to dashboadrd immediately after store creation
             //toast.success("Store created successfully.");
         } catch (error) {
-            toast.error("Something went wrong. Please contact your system admin.");
+            toast.error("Something went wrong.\n\n Please be on Dashboard and then try creating one again.");
         } finally {
             setLoading(false);
         }
