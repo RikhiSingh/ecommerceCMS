@@ -78,7 +78,7 @@ const TopCards: React.FC = () => {
     <div className="flex-1 space-y-4 p-8 pt-6">
       <Heading title="CommunmoCart AI" titleDescription="AI To do whatever here Lmao lorem can be here too kekw" />
       <Separator />
-      <div className="grid gap-4 grid-cols-3">
+      <div className="grid gap-4 lg:grid-cols-3 md:grid-cols-1 xl:max-w-full">
         {/* Location Card */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
