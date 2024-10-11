@@ -90,8 +90,8 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
                             remarkPlugins={[remarkGfm]}
                             components={{
                                 h1: ({ node, ...props }) => <h1 className="text-2xl font-bold" {...props} />,
-                                h2: ({ node, ...props }) => <h2 className="text-xl font-semibold" {...props} />,
-                                h3: ({ node, ...props }) => <h3 className="text-lg font-semibold" {...props} />,
+                                h2: ({ node, ...props }) => <h2 className="text-xl pt-4 font-semibold" {...props} />,
+                                h3: ({ node, ...props }) => <h3 className="text-lg pt-4 font-semibold" {...props} />,
                                 strong: ({ node, ...props }) => <strong className="text-lg font-semibold" {...props} />,
                                 ul: ({ node, ...props }) => <ul className="list-disc ml-6" {...props} />,
                                 ol: ({ node, ...props }) => <ol className="list-decimal ml-6" {...props} />,
