@@ -9,48 +9,24 @@ const videoData = [
         link: "https://www.youtube.com/embed/B0DrWAUsNSc",
     },
     {
-        title: "Intermediate Gardening Tips",
+        title: "How Much Food Can I Grow in 1 Year?",
         link: "https://www.youtube.com/embed/DOgOMLG-Zyg",
     },
     {
-        title: "Advanced Techniques",
-        link: "https://www.youtube.com/embed/Ujif7Z7udgw",
+        title: "Beekeeping and more",
+        link: "https://www.youtube.com/embed/P37AjceP82U",
     },
     {
-        title: "For Beginners - Gardening 101",
-        link: "https://www.youtube.com/embed/B0DrWAUsNSc",
+        title: "Summer Harvesting",
+        link: "https://www.youtube.com/embed/uL6NkuFp3Cc",
     },
     {
-        title: "Intermediate Gardening Tips",
-        link: "https://www.youtube.com/embed/DOgOMLG-Zyg",
+        title: "Final Summer Harvest",
+        link: "https://www.youtube.com/embed/vyRdcEbCpY4",
     },
     {
-        title: "Advanced Techniques",
-        link: "https://www.youtube.com/embed/Ujif7Z7udgw",
-    },
-    {
-        title: "For Beginners - Gardening 101",
-        link: "https://www.youtube.com/embed/B0DrWAUsNSc",
-    },
-    {
-        title: "Intermediate Gardening Tips",
-        link: "https://www.youtube.com/embed/DOgOMLG-Zyg",
-    },
-    {
-        title: "Advanced Techniques",
-        link: "https://www.youtube.com/embed/Ujif7Z7udgw",
-    },
-    {
-        title: "For Beginners - Gardening 101",
-        link: "https://www.youtube.com/embed/B0DrWAUsNSc",
-    },
-    {
-        title: "Intermediate Gardening Tips",
-        link: "https://www.youtube.com/embed/DOgOMLG-Zyg",
-    },
-    {
-        title: "Advanced Techniques",
-        link: "https://www.youtube.com/embed/Ujif7Z7udgw",
+        title: "One Year of Gardening",
+        link: "https://www.youtube.com/embed/pyMfkhtEI28",
     },
 ];
 
