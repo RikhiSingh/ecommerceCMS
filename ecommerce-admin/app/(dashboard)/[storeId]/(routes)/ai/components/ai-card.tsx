@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { BotMessageSquare } from 'lucide-react';
 import { useParams } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
 
 interface AiCardProps {
     address: string;
@@ -36,7 +37,6 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
 
             const data = await response.json();
 
-            
             if (response.ok) {
                 setAiResponse(data.response);
                 console.log(data.response);
@@ -78,8 +78,8 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
                 <Separator />
                 <div className='h-full min-h-[300px] p-2'>
                     <div className='pl-2'>
-                        {/* Display the AI response */}
-                        <p>{aiResponse || 'Response will be displayed here.'}</p>
+                        {/* Display the AI response using ReactMarkdown */}
+                        <ReactMarkdown>{aiResponse || 'Response will be displayed here.'}</ReactMarkdown>
                     </div>
                 </div>
             </div>
