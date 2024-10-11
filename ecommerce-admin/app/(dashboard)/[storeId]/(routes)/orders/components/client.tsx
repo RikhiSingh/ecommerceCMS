@@ -19,7 +19,7 @@ export const OrderClient: React.FC<OrderClientProps> = ({
         <>
             <Heading
                 title={`Orders (${data.length})`}
-                description="Manage orders for your store"
+                titleDescription="Manage orders for your store"
             />
             <Separator />
 

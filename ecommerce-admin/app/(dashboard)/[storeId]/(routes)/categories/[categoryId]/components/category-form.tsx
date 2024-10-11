@@ -106,7 +106,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
             <div className="flex items-center justify-between">
                 <Heading
                     title={title}
-                    description={description}
+                    titleDescription={description}
                 />
                 {initialData && (
                     <Button

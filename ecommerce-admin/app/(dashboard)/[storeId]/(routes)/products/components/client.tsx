@@ -27,7 +27,7 @@ export const ProductClient: React.FC<ProductClientProps> = ({
             <div className="flex items-center justify-between">
                 <Heading
                     title={`Products (${data.length})`}
-                    description="Manage products for your store"
+                    titleDescription="Manage products for your store"
                 />
                 <Button onClick={() => router.push(`/${params.storeId}/products/new`)}>
                     <Plus className="mr-2 h-4 w-4" />
@@ -38,7 +38,7 @@ export const ProductClient: React.FC<ProductClientProps> = ({
 
             <DataTable searchKey="name" columns={columns} data={data}/>
 
-            <Heading title="API" description="API calls for Products"/>
+            <Heading title="API" titleDescription="API calls for Products"/>
 
             <Separator />   
 

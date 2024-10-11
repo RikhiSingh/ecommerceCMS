@@ -106,7 +106,7 @@ export const ColorForm: React.FC<ColorFormProps> = ({
             <div className="flex items-center justify-between">
                 <Heading
                     title={title}
-                    description={description}
+                    titleDescription={description}
                 />
                 {initialData && (
                     <Button
