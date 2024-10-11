@@ -4,8 +4,8 @@ import { ClipLoader } from 'react-spinners';
 import Image from 'next/image';
 
 interface WeatherComponentProps {
-  latitude: number;
-  longitude: number;
+  currentWeather: any;
+  forecastData: any;
 }
 
 interface WeatherData {
@@ -35,51 +35,17 @@ interface WeatherData {
     dt_txt: string;
   }>;
 }
+interface WeatherComponentProps {
+  currentWeather: any;
+  forecastData: any;
+}
 
-const WeatherComponent: React.FC<WeatherComponentProps> = ({ latitude, longitude }) => {
-  const [currentWeather, setCurrentWeather] = useState<any>(null);
-  const [forecastData, setForecastData] = useState<WeatherData | null>(null);
+const WeatherComponent: React.FC<WeatherComponentProps> = ({ currentWeather, forecastData }) => {
+  // Remove the state variables and use the props instead
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const fetchWeather = async () => {
-      try {
-        const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
-        console.log(apiKey);
-
-        // Fetch current weather data
-        const currentWeatherResponse = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`
-        );
-        const currentWeatherData = await currentWeatherResponse.json();
-
-        // Fetch forecast data
-        const forecastResponse = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&appid=${apiKey}`
-        );
-        const forecastData = await forecastResponse.json();
-
-        if (currentWeatherResponse.ok && forecastResponse.ok) {
-          setCurrentWeather(currentWeatherData);
-          setForecastData(forecastData);
-          setLoading(false);
-        } else {
-          setError(
-            currentWeatherData.message ||
-              forecastData.message ||
-              'Unable to retrieve weather data.'
-          );
-          setLoading(false);
-        }
-      } catch (err) {
-        setError('Unable to retrieve weather data.');
-        setLoading(false);
-      }
-    };
-    fetchWeather();
-  }, [latitude, longitude]);
-
+  // Existing functions for processing forecast data
   const groupForecastByDay = (data: WeatherData['list']) => {
     const dailyData: { [date: string]: WeatherData['list'] } = {};
 
@@ -105,7 +71,7 @@ const WeatherComponent: React.FC<WeatherComponentProps> = ({ latitude, longitude
       return forecast;
     });
 
-    return dailyForecasts.slice(1, 4); // Change 4 to 8 for 7-day forecast (excluding today)
+    return dailyForecasts.slice(1, 4); // Next 3 days
   };
 
   if (loading) {
