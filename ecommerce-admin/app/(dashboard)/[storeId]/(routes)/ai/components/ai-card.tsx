@@ -9,6 +9,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
+import { ScrollArea } from "@/components/ui/scroll-area"
 
 // Define a custom type that includes the 'inline' prop
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
@@ -59,8 +60,8 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
     };
 
     return (
-        <Card className="w-full">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+        <div className="w-full border rounded-md">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2"> 
                 <CardTitle className="text-xl font-medium">Communo AI</CardTitle>
                 <BotMessageSquare className="h-8 w-8 text-muted-foreground" />
             </CardHeader>
@@ -83,7 +84,7 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
                     </Button>
                 </div>
                 <Separator />
-                <div className="h-full min-h-[300px] p-2">
+                <ScrollArea  className="h-[600px] min-h-[300px] p-4">
                     <div className="pl-2">
                         {/* Display the AI response using ReactMarkdown with custom components */}
                         <ReactMarkdown
@@ -115,12 +116,12 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
                                 },
                             }}
                         >
-                            {aiResponse || 'Response will be displayed here.'}
+                            {aiResponse || 'See the final magic here!'}
                         </ReactMarkdown>
                     </div>
-                </div>
+                </ScrollArea >
             </div>
-        </Card>
+        </div>
     );
 };
 

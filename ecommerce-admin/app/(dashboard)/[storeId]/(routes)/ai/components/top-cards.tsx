@@ -148,7 +148,7 @@ const TopCards: React.FC = () => {
             </CardContent>
           </Card>
         </div >
-        <div className="grid gap-4 w-2/3">
+        <div className="w-2/3">
           {/* Pass data to AiCard */}
           {currentWeather && forecastData && (
             <AiCard
