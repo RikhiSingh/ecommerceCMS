@@ -6,6 +6,16 @@ import { Separator } from '@/components/ui/separator';
 import { BotMessageSquare } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import remarkGfm from 'remark-gfm';
+
+// Define a custom type that includes the 'inline' prop
+interface CodeProps extends React.HTMLAttributes<HTMLElement> {
+    inline?: boolean;
+    className?: string;
+    node?: any;
+}
 
 interface AiCardProps {
     address: string;
@@ -39,47 +49,74 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
 
             if (response.ok) {
                 setAiResponse(data.response);
-                console.log(data.response);
             } else {
-                console.error('Error:', data.error);
                 setAiResponse('An error occurred while generating the AI response.');
             }
         } catch (error) {
-            console.error('Error:', error);
             setAiResponse('An error occurred while generating the AI response.');
         }
         setLoading(false);
     };
 
     return (
-        <Card className='w-full'>
-            <CardHeader className='flex flex-row items-center justify-between space-y-0 pb-2'>
-                <CardTitle className='text-xl font-medium'>Communo AI</CardTitle>
-                <BotMessageSquare className='h-8 w-8 text-muted-foreground' />
+        <Card className="w-full">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-xl font-medium">Communo AI</CardTitle>
+                <BotMessageSquare className="h-8 w-8 text-muted-foreground" />
             </CardHeader>
             <Separator />
-            <div className='p-2 flex flex-col gap-2'>
-                <div className='flex gap-2 flex-col justify-center items-center'>
-                    <p className='text-xl font-bold p-2'>Enter a plant name</p>
-                    <p className='text-md pl-2 pb-2'>
+            <div className="p-2 flex flex-col gap-2">
+                <div className="flex gap-2 flex-col justify-center items-center">
+                    <p className="text-xl font-bold p-2">Enter a plant name</p>
+                    <p className="text-md pl-2 pb-2">
                         Get personalized AI-engineered steps to grow it based on your current location and
-                        weather conditions
+                        weather conditions.
                     </p>
                     <Input
-                        className='max-w-[600px]'
-                        placeholder='Enter a plant name'
+                        className="max-w-[600px]"
+                        placeholder="Enter a plant name"
                         value={plantName}
                         onChange={(e) => setPlantName(e.target.value)}
                     />
-                    <Button className='mb-4 mt-2' onClick={handleGenerateResponse} disabled={loading}>
+                    <Button className="mb-4 mt-2" onClick={handleGenerateResponse} disabled={loading}>
                         {loading ? 'Generating...' : 'Generate Personalized AI Response'}
                     </Button>
                 </div>
                 <Separator />
-                <div className='h-full min-h-[300px] p-2'>
-                    <div className='pl-2'>
-                        {/* Display the AI response using ReactMarkdown */}
-                        <ReactMarkdown>{aiResponse || 'Response will be displayed here.'}</ReactMarkdown>
+                <div className="h-full min-h-[300px] p-2">
+                    <div className="pl-2">
+                        {/* Display the AI response using ReactMarkdown with custom components */}
+                        <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={{
+                                h1: ({ node, ...props }) => <h1 className="text-2xl font-bold" {...props} />,
+                                h2: ({ node, ...props }) => <h2 className="text-xl font-semibold" {...props} />,
+                                h3: ({ node, ...props }) => <h3 className="text-lg font-semibold" {...props} />,
+                                strong: ({ node, ...props }) => <strong className="text-lg font-semibold" {...props} />,
+                                ul: ({ node, ...props }) => <ul className="list-disc ml-6" {...props} />,
+                                ol: ({ node, ...props }) => <ol className="list-decimal ml-6" {...props} />,
+                                li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                                p: ({ node, ...props }) => <p className="mb-2" {...props} />,
+                                code: ({ node, inline, className, children, ...props }: CodeProps) => {
+                                    const match = /language-(\w+)/.exec(className || '');
+                                    return !inline && match ? (
+                                        <SyntaxHighlighter
+                                            language={match[1]} // Assuming `match` from className is defined elsewhere
+                                            style={vscDarkPlus as { [key: string]: React.CSSProperties }}
+                                        >
+                                            {String(children)}
+                                        </SyntaxHighlighter>
+
+                                    ) : (
+                                        <code className={className} {...props}>
+                                            {children}
+                                        </code>
+                                    );
+                                },
+                            }}
+                        >
+                            {aiResponse || 'Response will be displayed here.'}
+                        </ReactMarkdown>
                     </div>
                 </div>
             </div>
