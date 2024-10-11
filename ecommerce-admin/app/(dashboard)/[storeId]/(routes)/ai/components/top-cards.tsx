@@ -63,7 +63,7 @@ const TopCards: React.FC = () => {
   const fetchWeatherData = async (latitude: number, longitude: number) => {
     try {
       const apiKey = process.env.NEXT_PUBLIC_OPENWEATHERMAP_API_KEY;
-      console.log(apiKey);
+      // console.log(apiKey);
 
       // Fetch current weather data
       const currentWeatherResponse = await fetch(

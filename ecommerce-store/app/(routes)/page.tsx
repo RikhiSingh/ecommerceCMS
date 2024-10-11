@@ -10,7 +10,7 @@ const HomePage = async () => {
     // this is the landing page so show the featured
     const products = await getProducts({ isFeatured: true });
     // copy billboard Id and paste it here
-    const billboard = await getBillboard("8c0e2ebf-f228-4b8f-93d4-6ab94f329dce");
+    const billboard = await getBillboard("77aad171-a863-472f-a784-a00d708b9b2c");
 
     return (
         <Container>
