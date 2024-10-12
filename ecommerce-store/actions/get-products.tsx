@@ -11,9 +11,8 @@ interface Query {
 }
 
 const getProducts = async (query: Query): Promise<Product[]> => {
-    console.log(URL);
 
-    console.log("getProducts called with query:", query); 
+    // console.log("getProducts called with query:", query); 
     const url = qs.stringifyUrl({
         url: URL,
         query: {
@@ -23,12 +22,12 @@ const getProducts = async (query: Query): Promise<Product[]> => {
             isFeatured: query.isFeatured,
         }
     });
-    console.log("Fetching products from URL:", url);
+    // console.log("Fetching products from URL:", url);
 
     const res = await fetch(url);
     const products: Product[] = await res.json();
 
-    console.log("API Response for products:", products); 
+    // console.log("API Response for products:", products); 
 
     return products;
 };

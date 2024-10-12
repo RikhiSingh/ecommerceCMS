@@ -26,14 +26,14 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     params,
     searchParams
 }) => {
-    console.log("CategoryPage component loaded");
+    // console.log("CategoryPage component loaded");
     const products = await getProducts({
         categoryId: params.categoryId,
         // colorId: searchParams.colorId,
         // sizeId: searchParams.sizeId
     }) || []; // Ensure products is always an array
 
-    console.log("Fetched products:", products); 
+    // console.log("Fetched products:", products); 
 
     const sizes = await getSizes();
     const colors = await getColors();
