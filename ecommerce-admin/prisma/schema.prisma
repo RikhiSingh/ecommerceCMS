@@ -85,7 +85,7 @@ model Color {
 model Product {
   id          String       @id @default(uuid())
   storeId     String
-  description String
+  description String       @db.Text
   store       Store        @relation("StoreToProduct", fields: [storeId], references: [id])
   categoryId  String
   category    Category     @relation("CategoryToProduct", fields: [categoryId], references: [id])
