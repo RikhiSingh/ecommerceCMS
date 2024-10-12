@@ -39,7 +39,7 @@ const storeItems = [
 const Hero = () => {
     return (
         <div className="h-[300px] px-12">
-            <div className="text-2xl font-bold mb-16">
+            <div className="text-3xl font-bold mb-5">
                 Best Store isn&apos;t just a store, it&apos;s an experience.
             </div>
             <Carousel
