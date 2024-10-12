@@ -4,7 +4,7 @@ import { ShoppingCart } from "lucide-react";
 
 import { Product } from "@/types";
 import Currency from "@/components/ui/currency";
-import Button from "@/components/ui/button";
+import Button from "@/components/ui/my-button";
 import useCart from "@/hooks/use-cart";
 
 interface InfoProps {
