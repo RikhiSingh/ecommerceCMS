@@ -18,6 +18,7 @@ interface ProductCard {
 const ProductCard: React.FC<ProductCard> = ({
     data
 }) => {
+    // console.log("Product data passed to ProductCard:", data); 
     const cart = useCart();
     const previewModal = usePreviewModal();
     const router = useRouter();
