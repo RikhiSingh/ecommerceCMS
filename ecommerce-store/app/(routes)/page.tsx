@@ -9,8 +9,10 @@ export const revalidate = 0;
 const HomePage = async () => {
     // this is the landing page so show the featured
     const products = await getProducts({ isFeatured: true });
+    console.log("products:", products);
     // copy billboard Id and paste it here
     const billboard = await getBillboard("77aad171-a863-472f-a784-a00d708b9b2c");
+    console.log("API URL:", process.env.NEXT_PUBLIC_PRODUCT_API_URL);
 
     return (
         <Container>

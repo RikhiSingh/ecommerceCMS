@@ -16,9 +16,10 @@ const ProductPage: React.FC<ProductPageProps> = async ({
 }) => {
     const product = await getProduct(params.productId);
 
+    // Ensure that suggestedProducts is an array
     const suggestedProducts = await getProducts({
         categoryId: product?.category?.id
-    })
+    }) || []; // Fallback to empty array if no products
 
     return (
         <div className="bg-white">
@@ -31,7 +32,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({
                         </div>
                     </div>
                     <hr className="my-10" />
-                    <ProductList title="Related Items" items={suggestedProducts}/>
+                    <ProductList title="Related Items" items={suggestedProducts} />
                 </div>
             </Container>
         </div>

@@ -26,11 +26,14 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     params,
     searchParams
 }) => {
+    console.log("CategoryPage component loaded");
     const products = await getProducts({
         categoryId: params.categoryId,
-        colorId: searchParams.colorId,
-        sizeId: searchParams.sizeId
-    });
+        // colorId: searchParams.colorId,
+        // sizeId: searchParams.sizeId
+    }) || []; // Ensure products is always an array
+
+    console.log("Fetched products:", products); 
 
     const sizes = await getSizes();
     const colors = await getColors();
@@ -60,7 +63,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                         <div className="mt-6 lg:col-span-4 lg:mt-0">
                             {products.length === 0 && <NoResults />}
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                                {products.map((item)=>(
+                                {products.map((item) => (
                                     <ProductCard 
                                         key={item.id}
                                         data={item}
