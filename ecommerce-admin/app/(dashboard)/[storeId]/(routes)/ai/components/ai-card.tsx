@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -59,6 +59,11 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
         }
         setLoading(false);
     };
+
+    // Automatically generate response on component mount
+    useEffect(() => {
+        handleGenerateResponse();
+    }, []);
 
     return (
         <div className="w-full border rounded-md">
