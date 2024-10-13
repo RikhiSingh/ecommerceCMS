@@ -1,3 +1,4 @@
+import AdminDashboardCards from "@/components/admin/admin-dashboard-card";
 import { getIsAdmin } from "@/lib/admin";
 import { redirect } from "next/navigation";
 
@@ -9,9 +10,7 @@ const AdminPage = async () => {
     }
 
     return (
-        <div>
-            Admin PAge
-        </div>
+        <AdminDashboardCards />
     );
 }
 

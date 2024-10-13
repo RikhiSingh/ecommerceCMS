@@ -14,9 +14,9 @@ export function AdminMainNav({
 
     const routes = [
         {
-            href: `/${params.storeId}`,
+            href: `/admin`,
             label: 'Dashboard',
-            active: pathname === `/${params.storeId}`,
+            active: pathname === `/admin`,
         }
     ];
 
