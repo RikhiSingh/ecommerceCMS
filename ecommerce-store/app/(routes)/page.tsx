@@ -4,6 +4,7 @@ import ProductList from "@/components/product-list";
 import Banner from "@/components/banner";
 import Hero from "@/components/hero";
 import { Separator } from "@/components/ui/separator";
+import { FAQSection } from "@/components/faq";
 
 export const revalidate = 0;
 
@@ -21,6 +22,7 @@ const HomePage = async () => {
                     <Hero />
                     <Separator />
                     <ProductList title="Featured Products" items={products} />
+                    <FAQSection />
                 </div>
             </div>
         </Container>
