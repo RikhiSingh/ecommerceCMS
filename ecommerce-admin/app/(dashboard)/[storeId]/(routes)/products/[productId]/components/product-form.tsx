@@ -27,6 +27,7 @@ import { Input } from "@/components/ui/input";
 import { AlertModal } from "@/components/modals/alert-modal";
 import ImageUpload from "@/components/ui/image-upload";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
     name: z.string().min(1),
@@ -38,6 +39,7 @@ const formSchema = z.object({
     sizeId: z.string().min(1),
     isFeatured: z.boolean().default(false).optional(),
     isArchived: z.boolean().default(false).optional(),
+    quantity: z.coerce.number().min(1).default(1),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -84,6 +86,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             sizeId: '',
             isFeatured: false,
             isArchived: false,
+            quantity: 1
         }
     });
 
@@ -238,7 +241,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Input disabled={loading} placeholder="Product Description" {...field} />
+                                        <Textarea disabled={loading} placeholder="Product Description" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -246,6 +249,19 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         />
                     </div>
                     <div className="grid grid-cols-3 gap-8">
+                        <FormField
+                            control={form.control}
+                            name="quantity"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Quantity</FormLabel>
+                                    <FormControl>
+                                        <Input type="number" disabled={loading} placeholder="9.99" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                         <FormField
                             control={form.control}
                             name="sizeId"

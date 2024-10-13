@@ -2,13 +2,14 @@ import getCategory from "@/actions/get-category";
 import getColors from "@/actions/get-color";
 import getProducts from "@/actions/get-products";
 import getSizes from "@/actions/get-sizes";
-import Billboard from "@/components/billboard";
 import Container from "@/components/ui/container";
 import NoResults from "@/components/ui/no-results";
 import ProductCard from "@/components/ui/product-card";
 
 import Filter from "./components/filter";
 import MobileFilters from "./components/mobile-filters";
+import ProductList from "@/components/product-list";
+import { Separator } from "@/components/ui/separator";
 
 export const revalidate = 0;
 
@@ -39,13 +40,17 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     const colors = await getColors();
     const category = await getCategory(params.categoryId);
 
+    const featuredProducts = await getProducts({ isFeatured: true });
+
     return (
-        <div className="bg-white">
-            <Container>
-                <Billboard 
-                    data={category.billboard}
-                />
+        <Container>
+            <div className="bg-white">
                 <div className="px-4 sm:px-6 lg:px-8 pb-24">
+                    <div className="h-[150px] bg-red-300 rounded-b-xl flex justify-center items-center text-white p-10 mb-4">
+                        <p className="text-6xl font-extrabold">
+                            {category.name}
+                        </p>
+                    </div>
                     <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
                         <MobileFilters sizes={sizes} colors={colors} />
                         <div className="hidden lg:block">
@@ -64,7 +69,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                             {products.length === 0 && <NoResults />}
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                                 {products.map((item) => (
-                                    <ProductCard 
+                                    <ProductCard
                                         key={item.id}
                                         data={item}
                                     />
@@ -72,9 +77,14 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                             </div>
                         </div>
                     </div>
+
+                    <div className="mb-4 mt-8">
+                        <Separator className="mb-4" />
+                        <ProductList title="Featured Products" items={featuredProducts} />
+                    </div>
                 </div>
-            </Container>
-        </div>
+            </div>
+        </Container>
     );
 }
 
