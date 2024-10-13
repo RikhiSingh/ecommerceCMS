@@ -18,17 +18,9 @@ const ProductPage = async ({
 
     const categories = await prismadb.category.findMany();
 
-    const sizes = await prismadb.size.findMany({
-        where:{
-            storeId: params.storeId,
-        }
-    });
+    const sizes = await prismadb.size.findMany();
 
-    const colors = await prismadb.color.findMany({
-        where:{
-            storeId: params.storeId,
-        }
-    });
+    const colors = await prismadb.color.findMany();
 
 
     return (
