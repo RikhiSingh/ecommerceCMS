@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { BotMessageSquare, Cloud, MapPin } from 'lucide-react';
 import LocationComponent from './location-component';
 import WeatherComponent from './weather-component';
-import { ClipLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 import CurrentDateTimeComponent from './day-and-date';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -106,7 +106,7 @@ const TopCards: React.FC = () => {
           height: '100vh',
         }}
       >
-        <ClipLoader size={50} color={'#123abc'} loading={true} />
+        <HashLoader size={50} color={'#123abc'} loading={true} />
       </div>
     );
   }
