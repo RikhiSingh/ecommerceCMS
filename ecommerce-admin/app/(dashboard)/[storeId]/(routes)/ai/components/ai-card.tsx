@@ -10,7 +10,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { ClipLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 
 // Define a custom type that includes the 'inline' prop
 interface CodeProps extends React.HTMLAttributes<HTMLElement> {
@@ -95,7 +95,7 @@ const AiCard: React.FC<AiCardProps> = ({ address, currentWeather, forecastData, 
                         {/* Display the AI response using ReactMarkdown with custom components */}
                         {loading ? (
                             <div className="loading flex justify-center items-center">
-                                <ClipLoader color="#000" loading={loading} size={50} />
+                                <HashLoader color={'#123abc'} loading={loading} size={50} />
                             </div>
                         ) : (
                             <ReactMarkdown

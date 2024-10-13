@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ClipLoader } from 'react-spinners';
+import { HashLoader } from 'react-spinners';
 import Image from 'next/image';
 
 interface WeatherComponentProps {
@@ -84,7 +84,7 @@ const WeatherComponent: React.FC<WeatherComponentProps> = ({ currentWeather, for
           height: '100vh',
         }}
       >
-        <ClipLoader size={50} color={'#123abc'} loading={true} />
+        <HashLoader size={50} color={'#123abc'} loading={true} />
         <p>Loading Weather Data...</p>
       </div>
     );

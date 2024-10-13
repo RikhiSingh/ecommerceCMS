@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Circle } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L, { LatLngExpression } from 'leaflet';
 import { Separator } from '@/components/ui/separator';
-import { ClipLoader } from 'react-spinners'; // Import the spinner
+import { HashLoader } from 'react-spinners'; // Import the spinner
 
 // Fix for default icon issue with Webpack
 delete (L.Icon.Default.prototype as any)._getIconUrl;
@@ -32,7 +32,7 @@ const LocationComponent: React.FC<LocationComponentProps> = ({ position, address
           height: '100vh',
         }}
       >
-        <ClipLoader size={50} color={'#123abc'} loading={true} />
+        <HashLoader size={50} color={'#123abc'} loading={true} />
         <p>Loading Location Data...</p>
       </div>
     );
