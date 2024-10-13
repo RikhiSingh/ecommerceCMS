@@ -8,7 +8,6 @@ import { adminGetSalesCount } from "@/actions/admin/admin-get-sales-count";
 import { adminGetStockCount } from "@/actions/admin/admin-get-stock-count";
 import { adminGetGraphRevenue } from "@/actions/admin/admin-get-graph-revenue";
 import { formatter } from "@/lib/utils";
-import prismadb from "@/lib/prismadb";
 import { adminGetTotalUsers } from "@/actions/admin/admin-get-users-count";
 
 const AdminDashboardCards = async () => {

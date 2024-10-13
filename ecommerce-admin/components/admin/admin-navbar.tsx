@@ -1,6 +1,5 @@
 import { UserButton, auth } from "@clerk/nextjs";
 
-import { MainNav } from "@/components/main-nav";
 import { redirect } from "next/navigation";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { AdminMainNav } from "./admin-main-nav";
