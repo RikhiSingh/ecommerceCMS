@@ -20,7 +20,8 @@ export async function POST(
             sizeId,
             images,
             isFeatured,
-            isArchived
+            isArchived,
+            quantity
         } = body;
 
         if (!userId) {
@@ -51,6 +52,10 @@ export async function POST(
             return new NextResponse("Color ID is required", { status: 400 });
         }
 
+        if (!quantity) {
+            return new NextResponse("Quantity is required", { status: 400 });
+        }
+
         if (!params.storeId) {
             return new NextResponse("Store ID is required", { status: 400 });
         }
@@ -76,6 +81,7 @@ export async function POST(
                 categoryId,
                 colorId,
                 sizeId,
+                quantity,
                 storeId: params.storeId,
                 images: {
                     createMany: {
@@ -105,6 +111,7 @@ export async function GET(
         const colorId = searchParams.get("colorId") || undefined;
         const sizeId = searchParams.get("sizeId") || undefined;
         const isFeatured = searchParams.get("isFeatured");
+        const quantity = searchParams.get("quantity");
 
         if (!params.storeId) {
             return new NextResponse("Store ID is required", { status: 400 });
@@ -119,7 +126,8 @@ export async function GET(
                 // not false rather undefined so completely ignores this filter
                 isFeatured: isFeatured ? true : undefined,
                 // always false cuz its archived already
-                isArchived: false
+                isArchived: false,
+                quantity: quantity ? parseInt(quantity) : undefined
             },
             include:{
                 images: true,

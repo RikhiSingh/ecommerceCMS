@@ -32,6 +32,7 @@ const ProductsPage = async ({
         isArchived: item.isArchived,
         price: formatter.format(item.price.toNumber()),
         category: item.category.name,
+        quantity: item.quantity,
         size: item.size.name,
         color: item.color.value,
         createdAt: format(item.createdAt, "MMMM do, yyyy")

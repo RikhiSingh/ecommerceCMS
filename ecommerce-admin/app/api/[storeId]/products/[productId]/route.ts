@@ -51,7 +51,8 @@ export async function PATCH(
             sizeId,
             images,
             isFeatured,
-            isArchived
+            isArchived,
+            quantity
         } = body;
 
         if (!userId) {
@@ -80,6 +81,10 @@ export async function PATCH(
 
         if (!colorId) {
             return new NextResponse("Color ID is required", { status: 400 });
+        }
+
+        if (!quantity) {
+            return new NextResponse("Quantity is required", { status: 400 });
         }
 
         if (!params.productId) {
@@ -112,6 +117,7 @@ export async function PATCH(
                 },
                 isFeatured,
                 isArchived,
+                quantity
             }
         });
 
