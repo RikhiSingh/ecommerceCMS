@@ -3,6 +3,7 @@ import getProducts from "@/actions/get-products";
 import ProductList from "@/components/product-list";
 import Banner from "@/components/banner";
 import Hero from "@/components/hero";
+import { Separator } from "@/components/ui/separator";
 
 export const revalidate = 0;
 
@@ -18,6 +19,7 @@ const HomePage = async () => {
                 <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
                     <Banner />
                     <Hero />
+                    <Separator />
                     <ProductList title="Featured Products" items={products} />
                 </div>
             </div>
