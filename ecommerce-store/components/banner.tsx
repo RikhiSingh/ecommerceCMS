@@ -8,7 +8,7 @@ const Banner = () => {
                     <p>
                         Order Local growns in your region!
                     </p>
-                    <p>
+                    <p className="hidden lg:block">
                         Right now!
                     </p>
                 </div>

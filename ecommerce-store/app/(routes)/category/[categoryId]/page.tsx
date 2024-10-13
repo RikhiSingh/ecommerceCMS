@@ -8,6 +8,8 @@ import ProductCard from "@/components/ui/product-card";
 
 import Filter from "./components/filter";
 import MobileFilters from "./components/mobile-filters";
+import ProductList from "@/components/product-list";
+import { Separator } from "@/components/ui/separator";
 
 export const revalidate = 0;
 
@@ -38,9 +40,11 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     const colors = await getColors();
     const category = await getCategory(params.categoryId);
 
+    const featuredProducts = await getProducts({ isFeatured: true });
+
     return (
-        <div className="bg-white">
-            <Container>
+        <Container>
+            <div className="bg-white">
                 <div className="px-4 sm:px-6 lg:px-8 pb-24">
                     <div className="h-[150px] bg-red-300 rounded-b-xl flex justify-center items-center text-white p-10 mb-4">
                         <p className="text-6xl font-extrabold">
@@ -73,9 +77,14 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                             </div>
                         </div>
                     </div>
+
+                    <div className="mb-4 mt-8">
+                        <Separator className="mb-4" />
+                        <ProductList title="Featured Products" items={featuredProducts} />
+                    </div>
                 </div>
-            </Container>
-        </div>
+            </div>
+        </Container>
     );
 }
 

@@ -57,19 +57,21 @@ const MobileMainNav: React.FC<MobileMainNavProps> = ({ data }) => {
                             />
                         </div>
 
-                        {/* Render the filters */}
+                        {/* Render the categories */}
                         <div className="lg:hidden block">
                             <nav
                                 className="mx-6 flex flex-col gap-4 lg:space-x-6"
-                            >
+                                >
+                                <p className="text-2xl font-bold pl-4 text-indigo-600 underline decoration-red-200">Categories</p>
                                 {routes.map((route) => (
                                     <Link
                                         key={route.href}
                                         href={route.href}
                                         className={cn(
                                             "text-xl font-medium transition-colors pl-4 hover:text-black",
-                                            route.active ? "text-black" : "text-neutral-500"
+                                            route.active ? "text-black font-bold" : "text-neutral-500"
                                         )}
+                                        onClick={onClose}
                                     >
                                         {route.label}
                                     </Link>
