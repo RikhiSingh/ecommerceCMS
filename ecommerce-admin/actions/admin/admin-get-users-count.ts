@@ -1,9 +1,12 @@
 import prismadb from "@/lib/prismadb";
 
 export const adminGetTotalUsers = async () => {
-    const usersCount = await prismadb.store.count({
-        where: {},
+    const uniqueUsers = await prismadb.store.findMany({
+        distinct: ['userId'], // Find distinct userIds
+        select: {
+            userId: true, // Only select the userId
+        },
     });
 
-    return usersCount;
+    return uniqueUsers.length; // Return the count of unique userIds
 };

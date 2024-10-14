@@ -9,6 +9,7 @@ import { adminGetStockCount } from "@/actions/admin/admin-get-stock-count";
 import { adminGetGraphRevenue } from "@/actions/admin/admin-get-graph-revenue";
 import { formatter } from "@/lib/utils";
 import { adminGetTotalUsers } from "@/actions/admin/admin-get-users-count";
+import { adminGetTotalStores } from "@/actions/admin/admin-get-stores-count";
 
 const AdminDashboardCards = async () => {
 
@@ -17,13 +18,14 @@ const AdminDashboardCards = async () => {
     const stockCount = await adminGetStockCount();
     const graphData = await adminGetGraphRevenue();
     const totalUsers = await adminGetTotalUsers();
+    const totalStores = await adminGetTotalStores();
 
     return (
         <div className="flex-col">
             <div className="flex-1 space-y-4 p-8 pt-6">
                 <Heading title="Dashboard" titleDescription="Overview of your Store" />
                 <Separator />
-                <div className=" grid gap-4 grid-cols-4">
+                <div className=" grid gap-4 lg:grid-cols-5">
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                             <CardTitle className="text-sm font-medium">
@@ -73,6 +75,19 @@ const AdminDashboardCards = async () => {
                         <CardContent>
                             <div className="text-2xl font-bold">
                                 {totalUsers}
+                            </div>
+                        </CardContent>
+                    </Card>
+                    <Card>
+                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">
+                                Total Stores
+                            </CardTitle>
+                            <Package className="h-4 w-4 text-muted-foreground" />
+                        </CardHeader>
+                        <CardContent>
+                            <div className="text-2xl font-bold">
+                                {totalStores}
                             </div>
                         </CardContent>
                     </Card>
