@@ -1,0 +1,5 @@
+Kill tasks on a particular port
+
+netstat -ano | findstr :3000
+
+taskkill /PID <PID> /F
