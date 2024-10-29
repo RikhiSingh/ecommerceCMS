@@ -6,12 +6,19 @@ import Hero from "@/components/hero";
 import { Separator } from "@/components/ui/separator";
 import { FAQSection } from "@/components/faq";
 import StoreLocator from "@/components/store-locator";
+import { Product } from "@/types";
 
 export const revalidate = 0;
 
 const HomePage = async () => {
     // this is the landing page so show the featured
-    const products = await getProducts({ isFeatured: true });
+    let products: Product[] = [];
+    try {
+        products = await getProducts({ isFeatured: true });
+    }
+    catch (error) {
+        console.log("Error fetching featured products: " + error);
+    }
     // console.log("products:", products);
     // copy billboard Id and paste it here
 
