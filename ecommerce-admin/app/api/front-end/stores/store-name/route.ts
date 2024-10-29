@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
-export async function GET(req: Request) {
+export async function GET(req: Request, { params }: { params: { storeId: string } }) {
     try {
-        const url = new URL(req.url);
-        const storeId = url.searchParams.get("storeId");
+        const { storeId } = params;
 
         if (!storeId) {
             return new NextResponse("Store ID is required", { status: 400 });
