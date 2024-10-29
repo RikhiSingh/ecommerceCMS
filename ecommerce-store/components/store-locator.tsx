@@ -1,6 +1,7 @@
 
 import getStores from "@/actions/get-store-locations";
-import MapComponent from "./map-component";
+import dynamic from "next/dynamic";
+const MapComponent = dynamic(() => import('../components/map-component'), { ssr: false });
 
 const StoreLocator = async () => {
     const stores = await getStores({});
