@@ -1,12 +1,11 @@
 "use client";
 
 import * as z from "zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
-
 
 import { useStoreModal } from "@/hooks/use-store-modal";
 import { Modal } from "@/components/ui/modal";
@@ -14,48 +13,65 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+// Import Google Maps components
+import { useJsApiLoader, Autocomplete } from '@react-google-maps/api';
+
 const formSchema = z.object({
-    // atleast 1 character is required to name the store
     name: z.string().min(1),
     location: z.string().min(1),
-})
+});
+
+const googleMapsApiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!;
 
 export const StoreModal = () => {
     const storeModal = useStoreModal();
+    const [loading, setLoading] = useState(false);
+    const [autocomplete, setAutocomplete] = useState<google.maps.places.Autocomplete | null>(null);
+    const [locationInput, setLocationInput] = useState('');
 
-    const [loading, setLoading] = useState(false)
+    // Load the Google Maps JavaScript API
+    const { isLoaded } = useJsApiLoader({
+        googleMapsApiKey,
+        libraries: ['places'],
+    });
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            // default name
             name: "",
+            location: "",
         },
     });
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        // TODO: Create Store
-
-        // log the store name entered by the user
-        // console.log(values);
-
         try {
             setLoading(true);
-
             const response = await axios.post('api/stores', values);
-
-            // immediate redirect to dashboard after creation
-            // not using router from nextnavigation as we wanna do whole page refresh
-            // sp 100% loaded to database (no sync issue)
             window.location.assign(`/${response.data.id}`);
-
-            // notification not required as we will be going to dashboadrd immediately after store creation
-            //toast.success("Store created successfully.");
         } catch (error) {
             toast.error("Something went wrong.\n\n Please be on Dashboard and then try creating one again.");
         } finally {
             setLoading(false);
         }
+    };
+
+    const onLoad = (autocompleteInstance: google.maps.places.Autocomplete | null) => {
+        setAutocomplete(autocompleteInstance);
+    };
+
+    const onPlaceChanged = () => {
+        if (autocomplete !== null) {
+            const place = autocomplete.getPlace();
+            const formattedAddress = place.formatted_address || locationInput;
+            form.setValue('location', formattedAddress);
+            setLocationInput(formattedAddress);
+        } else {
+            console.log('Autocomplete is not loaded yet!');
+        }
+    };
+
+    if (!isLoaded) {
+        return <div>Loading...</div>;
     }
 
     return (
@@ -69,6 +85,7 @@ export const StoreModal = () => {
                 <div className="space-y-4 py-2 pb-4">
                     <Form {...form}>
                         <form onSubmit={form.handleSubmit(onSubmit)}>
+                            {/* Name Field */}
                             <FormField
                                 control={form.control}
                                 name="name"
@@ -82,20 +99,34 @@ export const StoreModal = () => {
                                     </FormItem>
                                 )}
                             />
-                            <div className="mt-2" />
-                            <FormField
+                            {/* Location Field with Autocomplete */}
+                            <Controller
                                 control={form.control}
                                 name="location"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Location</FormLabel>
                                         <FormControl>
-                                            <Input disabled={loading} placeholder="Toronto, ON" {...field} />
+                                            <Autocomplete
+                                                onLoad={onLoad}
+                                                onPlaceChanged={onPlaceChanged}
+                                            >
+                                                <Input
+                                                    {...field}
+                                                    disabled={loading}
+                                                    placeholder="Toronto, ON"
+                                                    value={locationInput}
+                                                    onChange={(e) => {
+                                                        setLocationInput(e.target.value);
+                                                    }}
+                                                />
+                                            </Autocomplete>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
+                            {/* Form Actions */}
                             <div className="pt-6 space-x-2 flex items-center justify-end w-full">
                                 <Button disabled={loading} variant="outline" onClick={storeModal.onClose}>
                                     Cancel
