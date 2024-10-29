@@ -52,7 +52,7 @@ const ActionsCell: React.FC<{ row: any }> = ({ row }) => {
   const deleteStore = async () => {
     try {
       setLoading(true)
-      await axios.delete(`/api/stores/${storeId}`)
+      await axios.delete(`/api/admin/stores/${storeId}`)
       router.refresh();
       toast.success("Store deleted.");
     } catch (error) {
