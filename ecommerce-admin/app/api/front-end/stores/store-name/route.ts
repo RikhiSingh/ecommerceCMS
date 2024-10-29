@@ -2,9 +2,9 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
-export async function GET(req: Request, { params }: { params: { storeId: string } }) {
+export async function GET(req: Request) {
     try {
-        const { storeId } = params;
+        const storeId = new URL(req.url).searchParams.get("storeId");
 
         if (!storeId) {
             return new NextResponse("Store ID is required", { status: 400 });
