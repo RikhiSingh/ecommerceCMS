@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import prismadb from "@/lib/prismadb";
 
@@ -9,14 +10,9 @@ export async function GET(req: Request, { params }: { params: { storeId: string 
             return new NextResponse("Store ID is required", { status: 400 });
         }
 
-        // Fetch the store name for the specified storeId
         const store = await prismadb.store.findUnique({
-            where: {
-                id: storeId,
-            },
-            select: {
-                name: true, // Only select the name field
-            },
+            where: { id: storeId },
+            select: { name: true },
         });
 
         if (!store) {
