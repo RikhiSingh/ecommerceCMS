@@ -4,6 +4,7 @@ import ProductCard from "@/components/ui/product-card";
 
 import ProductList from "@/components/product-list";
 import { Separator } from "@/components/ui/separator";
+
 import getStoreProducts from "@/actions/stores/get-store";
 import getProducts from "@/actions/get-products";
 import getStoreName from "@/actions/stores/get-store-name";

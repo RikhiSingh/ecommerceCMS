@@ -1,8 +1,8 @@
-import { Store } from "@/types";
+import { Product } from "@/types";
 
 const URL = `${process.env.NEXT_PUBLIC_PRODUCT_API_URL}/stores/store-products`;
 
-const getStoreProducts = async (id: string): Promise<Store> => {
+const getStoreProducts = async (id: string): Promise<Product[]> => {
     const response = await fetch(`${URL}?storeId=${id}`, {
         method: "GET",
     });
