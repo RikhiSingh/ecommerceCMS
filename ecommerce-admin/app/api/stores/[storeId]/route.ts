@@ -11,27 +11,28 @@ export async function PATCH(
         const { userId } = auth();
         const body = await req.json();
 
-        const {name} = body;
+        const { name, location } = body;
 
         if (!userId) {
             return new NextResponse("Unauthenticated", { status: 401 });
         }
 
-        if(!name){
-            return new NextResponse("Name is required", {status: 400});
+        if (!name) {
+            return new NextResponse("Name is required", { status: 400 });
         }
 
-        if(!params.storeId){
-            return new NextResponse("Store ID is required", {status: 400});
+        if (!params.storeId) {
+            return new NextResponse("Store ID is required", { status: 400 });
         }
 
         const store = await prismadb.store.updateMany({
-            where:{
+            where: {
                 id: params.storeId,
                 userId
             },
-            data:{
-                name
+            data: {
+                name,
+                location
             }
         });
 
@@ -58,15 +59,15 @@ export async function DELETE(
             return new NextResponse("Unauthenticated", { status: 401 });
         }
 
-        if(!params.storeId){
-            return new NextResponse("Store ID is required", {status: 400});
+        if (!params.storeId) {
+            return new NextResponse("Store ID is required", { status: 400 });
         }
 
         // need tyo use Delete many as we userId is not unique
         const store = await prismadb.store.deleteMany({
-            where:{
+            where: {
                 id: params.storeId,
-                userId
+                userId,
             }
         });
 

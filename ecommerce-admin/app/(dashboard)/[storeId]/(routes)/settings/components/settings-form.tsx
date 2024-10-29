@@ -32,6 +32,7 @@ interface SettingsFormProps {
 
 const formSchema = z.object({
     name: z.string().min(1),
+    location: z.string().min(1),
 });
 
 type SettingsFormValues = z.infer<typeof formSchema>;
@@ -116,6 +117,19 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                                     <FormLabel>Name</FormLabel>
                                     <FormControl>
                                         <Input disabled={loading} placeholder="Store name" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="location"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Location</FormLabel>
+                                    <FormControl>
+                                        <Input disabled={loading} placeholder="Toronto, ON" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
