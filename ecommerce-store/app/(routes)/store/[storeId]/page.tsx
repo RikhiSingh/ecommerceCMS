@@ -20,10 +20,25 @@ const StoreProdcutPage: React.FC<StoreProdcutPageProps> = async ({
     params
 }) => {
 
-    const storeProducts = await getStoreProducts(params.storeId);
-    const featuredProducts = await getProducts({ isFeatured: true });
+    let storeProducts, storeName, featuredProducts;
 
-    const storeName = await getStoreName(params.storeId);
+    try {
+        storeProducts = await getStoreProducts(params.storeId);
+    } catch (error) {
+        console.error("Error fetching store products:", error);
+    }
+
+    try {
+        storeName = await getStoreName(params.storeId);
+    } catch (error) {
+        console.error("Error fetching store name:", error);
+    }
+
+    try {
+        featuredProducts = await getProducts({ isFeatured: true });
+    } catch (error) {
+        console.error("Error fetching featured products:", error);
+    }
 
     return (
         <Container>
@@ -31,7 +46,7 @@ const StoreProdcutPage: React.FC<StoreProdcutPageProps> = async ({
                 <div className="px-4 sm:px-6 lg:px-8 pb-24">
                     <div className="h-[150px] bg-red-300 rounded-b-xl flex justify-center items-center text-white p-10 mb-4">
                         <p className="text-6xl font-extrabold">
-                            {storeName.name}
+                            {storeName?.name}
                         </p>
                     </div>
                     <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
@@ -50,7 +65,7 @@ const StoreProdcutPage: React.FC<StoreProdcutPageProps> = async ({
 
                     <div className="mb-4 mt-8">
                         <Separator className="mb-4" />
-                        <ProductList title="Featured Products" items={featuredProducts} />
+                        <ProductList title="Featured Products" items={featuredProducts ?? []} />
                     </div>
                 </div>
             </div>
