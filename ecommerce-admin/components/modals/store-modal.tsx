@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 const formSchema = z.object({
     // atleast 1 character is required to name the store
     name: z.string().min(1),
+    location: z.string().min(1),
 })
 
 export const StoreModal = () => {
@@ -76,6 +77,20 @@ export const StoreModal = () => {
                                         <FormLabel>Name</FormLabel>
                                         <FormControl>
                                             <Input disabled={loading} placeholder="E-Commerce" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <div className="mt-2" />
+                            <FormField
+                                control={form.control}
+                                name="location"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Location</FormLabel>
+                                        <FormControl>
+                                            <Input disabled={loading} placeholder="Toronto, ON" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>

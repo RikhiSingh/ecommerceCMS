@@ -18,6 +18,7 @@ model Store {
   id         String      @id @default(uuid())
   name       String
   userId     String
+  location   String
   billboards Billboard[] @relation("StoreToBillboard")
   categories Category[]  @relation("StoreToCategory")
   sizes      Size[]      @relation("StoreToSize")
