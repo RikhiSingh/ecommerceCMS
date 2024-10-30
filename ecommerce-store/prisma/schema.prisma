@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Billboard {
+  id        String   @id
+  storeId   String
+  label     String
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([storeId])
+}
+
+model Category {
+  id          String   @id
+  storeId     String
+  billboardId String
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  @@index([billboardId])
+  @@index([storeId])
+}
+
+model Color {
+  id        String   @id
+  storeId   String
+  name      String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([storeId])
+}
+
+model Image {
+  id        String   @id
+  productId String
+  url       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([productId])
+}
+
+model Order {
+  id        String   @id
+  storeId   String
+  isPaid    Boolean  @default(false)
+  phone     String   @default("")
+  address   String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([storeId])
+}
+
+model OrderItems {
+  id        String @id
+  orderId   String
+  productId String
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Product {
+  id          String   @id
+  storeId     String
+  description String   @db.Text
+  categoryId  String
+  name        String
+  price       Decimal
+  isFeatured  Boolean  @default(false)
+  isArchived  Boolean  @default(false)
+  sizeId      String
+  colorId     String
+  quantity    Int      @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+
+  @@index([categoryId])
+  @@index([colorId])
+  @@index([sizeId])
+  @@index([storeId])
+}
+
+model Size {
+  id        String   @id
+  storeId   String
+  name      String
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+
+  @@index([storeId])
+}
+
+model Store {
+  id        String   @id
+  name      String
+  userId    String
+  location  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+}

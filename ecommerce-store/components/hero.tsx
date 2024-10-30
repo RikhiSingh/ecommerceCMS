@@ -1,17 +1,18 @@
-import getStores from "@/actions/get-store-locations";
-import { Card, CardContent } from "@/components/ui/card"
+import { PrismaClient } from '@prisma/client';
+import { Card, CardContent } from "@/components/ui/card";
 import {
     Carousel,
     CarouselContent,
     CarouselItem,
     CarouselNext,
     CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
 import Image from "next/image";
 
+const prisma = new PrismaClient();
+
 const Hero = async () => {
-    const stores = await getStores({});
-    // console.log("stores:", stores);
+    const stores = await prisma.store.findMany();
     const storeLinkPrefix = "/store/";
 
     return (
@@ -54,6 +55,6 @@ const Hero = async () => {
             </Carousel>
         </div>
     );
-}
+};
 
 export default Hero;
