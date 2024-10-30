@@ -1,12 +1,10 @@
 import dynamic from "next/dynamic";
-import { PrismaClient } from "@prisma/client";
+import prismadb from "@/lib/prismadb";
 const MapComponent = dynamic(() => import('../components/map-component'), { ssr: false });
-
-const prisma = new PrismaClient();
 
 const StoreLocator = async () => {
     // const stores = await getStores({});
-    const stores = await prisma.store.findMany();
+    const stores = await prismadb.store.findMany();
 
     return (
         <div className="bg-gray-100 rounded-lg">

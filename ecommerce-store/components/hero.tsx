@@ -1,4 +1,3 @@
-import { PrismaClient } from '@prisma/client';
 import { Card, CardContent } from "@/components/ui/card";
 import {
     Carousel,
@@ -8,11 +7,11 @@ import {
     CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
+import prismadb from '@/lib/prismadb';
 
-const prisma = new PrismaClient();
 
 const Hero = async () => {
-    const stores = await prisma.store.findMany();
+    const stores = await prismadb.store.findMany();
     const storeLinkPrefix = "/store/";
 
     return (
