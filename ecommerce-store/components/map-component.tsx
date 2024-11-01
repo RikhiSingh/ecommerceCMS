@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from 'react';
 import L from 'leaflet';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { MapPin } from 'lucide-react';
+import { MapPin, StoreIcon } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 
 import { Store } from '@/types';
@@ -16,6 +16,8 @@ type StoreWithCoords = Store & {
 
 
 const MapComponent = ({ stores }: { stores: Store[] }) => {
+    const storeLinkPrefix = "/store/";
+
     const [storeLocations, setStoreLocations] = useState<StoreWithCoords[]>([]);
 
     useEffect(() => {
@@ -65,7 +67,12 @@ const MapComponent = ({ stores }: { stores: Store[] }) => {
                     position={[store.coords.lat, store.coords.lng]}
                     icon={customMarkerIcon}
                 >
-                    <Popup>{store.name}</Popup>
+                    <Popup>
+                        <a href={`${storeLinkPrefix}${store.id}`} className='flex flex-row items-center gap-2 justify-center underline'>
+                            <StoreIcon />
+                            {store.name.toUpperCase()}
+                        </a>
+                    </Popup>
                 </Marker>
             ))}
         </MapContainer>
