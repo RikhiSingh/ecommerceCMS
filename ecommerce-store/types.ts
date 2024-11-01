@@ -14,14 +14,18 @@ export interface Product {
     id: string;
     category: Category;
     name: string;
-    price: string;
+    price: number;
     description: string;
-    quantity: number;
+    stockQuantity: number;
     isFeatured: boolean;
     size: Size;
     color: Color;
     images: Image[];
 };
+
+export interface CartItem extends Product {
+    quantity: number; // Quantity added to the cart
+  }
 
 export interface Image {
     id: string;

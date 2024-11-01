@@ -39,7 +39,7 @@ const formSchema = z.object({
     sizeId: z.string().min(1),
     isFeatured: z.boolean().default(false).optional(),
     isArchived: z.boolean().default(false).optional(),
-    quantity: z.coerce.number().min(1).default(1),
+    stockQuantity: z.coerce.number().min(1).default(1),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -86,7 +86,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             sizeId: '',
             isFeatured: false,
             isArchived: false,
-            quantity: 1
+            stockQuantity: 1
         }
     });
 
@@ -251,7 +251,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     <div className="grid grid-cols-3 gap-8">
                         <FormField
                             control={form.control}
-                            name="quantity"
+                            name="stockQuantity"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Quantity</FormLabel>

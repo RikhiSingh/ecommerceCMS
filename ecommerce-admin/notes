@@ -3,3 +3,8 @@ Kill tasks on a particular port
 netstat -ano | findstr :3000
 
 taskkill /PID <PID> /F
+
+Warning: Only plain objects can be passed to Client Components from Server Components. Decimal objects are not supported.
+  {id: ..., storeId: ..., description: ..., categoryId: ..., name: ..., price: Decimal, isFeatured: ..., isArchived: ..., sizeId: ..., colorId: ..., stockQuantity: ..., createdAt: ..., updatedAt: ..., images: ...}
+
+  error on product edit page

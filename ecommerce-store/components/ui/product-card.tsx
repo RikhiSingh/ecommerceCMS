@@ -5,11 +5,11 @@ import { MouseEventHandler } from "react";
 import { Expand, ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Product } from "@/types";
+import { CartItem, Product } from "@/types";
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import usePreviewModal from "@/hooks/use-preview-modal";
-import useCart from "@/hooks/use-cart";
+import { useCart } from "@/context/CartContext";
 
 interface ProductCard {
     data: Product;
@@ -38,7 +38,12 @@ const ProductCard: React.FC<ProductCard> = ({
         // this stopProgration will make sure and overwrite that fact that the div returned (item card) has an onClick
         event.stopPropagation();
 
-        cart.addItem(data);
+        const cartItem: CartItem = {
+            ...data,
+            quantity: 1, // or some other default quantity
+          };
+
+        cart.addItem(cartItem);
     }
     
     return (

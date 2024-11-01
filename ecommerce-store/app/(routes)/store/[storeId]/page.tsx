@@ -5,7 +5,7 @@ import ProductCard from "@/components/ui/product-card";
 import ProductList from "@/components/product-list";
 import { Separator } from "@/components/ui/separator";
 
-import getStoreProducts from "@/actions/stores/get-store";
+import { getStoreProducts } from "@/actions/stores/get-store";
 import getProducts from "@/actions/get-products";
 import getStoreName from "@/actions/stores/get-store-name";
 
@@ -21,25 +21,11 @@ const StoreProdcutPage: React.FC<StoreProdcutPageProps> = async ({
     params
 }) => {
 
-    let storeProducts, storeName, featuredProducts;
+    let storeProducts = await getStoreProducts(params.storeId);
+    // console.log("StoreProdcutPage", storeProducts);
 
-    try {
-        storeProducts = await getStoreProducts(params.storeId);
-    } catch (error) {
-        console.error("Error fetching store products:", error);
-    }
-
-    try {
-        storeName = await getStoreName(params.storeId);
-    } catch (error) {
-        console.error("Error fetching store name:", error);
-    }
-
-    try {
-        featuredProducts = await getProducts({ isFeatured: true });
-    } catch (error) {
-        console.error("Error fetching featured products:", error);
-    }
+    let storeName = await getStoreName(params.storeId);
+    let featuredProducts = await getProducts({ isFeatured: true });
 
     return (
         <Container>
@@ -53,12 +39,13 @@ const StoreProdcutPage: React.FC<StoreProdcutPageProps> = async ({
                     <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
                         <div className="mt-6 lg:col-span-4 lg:mt-0">
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                                {Array.isArray(storeProducts) && storeProducts.map((item) => (
+                                {storeProducts.map((item) => (
                                     <ProductCard
                                         key={item.id}
                                         data={item}
                                     />
                                 ))}
+
                             </div>
 
                         </div>

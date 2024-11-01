@@ -7,12 +7,13 @@ import { toast } from "react-hot-toast";
 
 import Button from "@/components/ui/my-button";
 import Currency from "@/components/ui/currency";
-import useCart from "@/hooks/use-cart";
+import { useCart } from "@/context/CartContext";
+import { CartItem } from "@/types";
 
 const Summary = () => {
     const searchParams = useSearchParams();
-    const items = useCart((state) => state.items);
-    const removeAll = useCart((state) => state.removeAll);
+    const cart = useCart(); // Corrected usage
+    const { items, removeAll } = cart; // Destructure items and removeAll
 
     useEffect(() => {
         if (searchParams.get("success")) {
@@ -25,17 +26,33 @@ const Summary = () => {
         }
     }, [searchParams, removeAll]);
 
+    // Corrected total price calculation
     const totalPrice = items.reduce((total, item) => {
-        return total + Number(item.price);
+        return total + Number(item.price) * item.quantity;
     }, 0);
 
     const onCheckout = async () => {
-        const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-            productIds: items.map((item) => item.id),
-        });
+        if (items.length === 0) {
+            toast.error("Your cart is empty.");
+            return;
+        }
 
-        window.location = response.data.url;
-    }
+        try {
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_API_URL}/checkout`,
+                {
+                    items: items.map((item) => ({
+                        productId: item.id,
+                        quantity: item.quantity,
+                    })),
+                }
+            );
+            window.location.href = response.data.url;
+        } catch (error) {
+            toast.error("Failed to initiate checkout.");
+            console.error(error);
+        }
+    };
 
     return (
         <div
@@ -62,11 +79,15 @@ const Summary = () => {
                     <Currency value={totalPrice} />
                 </div>
             </div>
-            <Button disabled={items.length === 0} onClick={onCheckout} className="w-full mt-6">
+            <Button
+                disabled={items.length === 0}
+                onClick={onCheckout}
+                className="w-full mt-6"
+            >
                 Checkout
             </Button>
         </div>
-    )
+    );
 };
 
 export default Summary;

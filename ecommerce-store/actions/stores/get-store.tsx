@@ -1,18 +1,35 @@
+import prismadb from "@/lib/prismadb";
 import { Product } from "@/types";
 
-const URL = `${process.env.NEXT_PUBLIC_PRODUCT_API_URL}/stores/store-products`;
-
-const getStoreProducts = async (id: string): Promise<Product[]> => {
-    const response = await fetch(`${URL}?storeId=${id}`, {
-        method: "GET",
+export const getStoreProducts = async (storeId: string): Promise<Product[]> => {
+    const products = await prismadb.product.findMany({
+        where: {
+            storeId: storeId,
+            isArchived: false
+        },
+        include: {
+            category: {
+                include: {
+                    billboard: true
+                }
+            }, // Includes the related Category data
+            size: true,     // Includes the related Size data
+            color: true,    // Includes the related Color data
+            images: true,
+        }
     });
 
-    if (!response.ok) {
-        throw new Error("Failed to fetch store products");
-    }
+    return products.map(product => ({
+        id: product.id,
+        category: product.category as Product["category"],
+        name: product.name,
+        price: Number(product.price),  // Convert Decimal to number
+        description: product.description,
+        stockQuantity: product.stockQuantity,
+        isFeatured: product.isFeatured,
+        size: product.size as Product["size"],
+        color: product.color as Product["color"],
+        images: product.images as Product["images"],
+    }));
 
-    const data = await response.json();
-    return data;
 };
-
-export default getStoreProducts;

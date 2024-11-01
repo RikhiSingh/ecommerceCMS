@@ -117,7 +117,7 @@ export async function PATCH(
                 },
                 isFeatured,
                 isArchived,
-                quantity
+                stockQuantity: quantity
             }
         });
 

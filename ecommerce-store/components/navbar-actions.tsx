@@ -5,7 +5,7 @@ import { ShoppingBag } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/ui/my-button";
-import useCart from "@/hooks/use-cart";
+import { useCart } from "@/context/CartContext";
 
 const NavbarActions = () => {
     // to prevent hydration

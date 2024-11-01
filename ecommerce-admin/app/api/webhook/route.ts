@@ -62,12 +62,12 @@ export async function POST(req: Request) {
                 id: {
                     in: [...productIds],
                 },
-                quantity: {
+                stockQuantity: {
                     gt: 0, // Only update if quantity is greater than zero
                 },
             },
             data: {
-                quantity: {
+                stockQuantity: {
                     decrement: 1,
                 },
                 isArchived: false, // Ensure it's not archived
@@ -80,7 +80,7 @@ export async function POST(req: Request) {
                 id: {
                     in: [...productIds],
                 },
-                quantity: 0, // Archive products with zero quantity
+                stockQuantity: 0, // Archive products with zero quantity
             },
             data: {
                 isArchived: true,

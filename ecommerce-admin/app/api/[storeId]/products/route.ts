@@ -81,7 +81,7 @@ export async function POST(
                 categoryId,
                 colorId,
                 sizeId,
-                quantity,
+                stockQuantity: quantity,
                 storeId: params.storeId,
                 images: {
                     createMany: {
@@ -127,7 +127,7 @@ export async function GET(
                 isFeatured: isFeatured ? true : undefined,
                 // always false cuz its archived already
                 isArchived: false,
-                quantity: quantity ? parseInt(quantity) : undefined
+                stockQuantity: quantity ? parseInt(quantity) : undefined
             },
             include:{
                 images: true,

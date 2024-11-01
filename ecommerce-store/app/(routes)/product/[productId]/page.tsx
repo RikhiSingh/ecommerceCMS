@@ -15,6 +15,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({
     params
 }) => {
     const product = await getProduct(params.productId);
+    // console.log("product", product);
 
     // Ensure that suggestedProducts is an array
     const suggestedProducts = await getProducts({
