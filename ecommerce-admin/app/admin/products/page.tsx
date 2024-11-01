@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card} from "@/components/ui/card";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
@@ -15,12 +15,16 @@ async function getData(): Promise<Payment[]> {
             createdAt: true,
             stockQuantity: true,
             price: true,
+            isFeatured: true,
         }
     });
 
     return products.map(product => {
         const stockQuantity = product.stockQuantity;
         const price = product.price;
+        
+        // If the product is featured, return "Yes", otherwise return "No"
+        const isFeatured = product.isFeatured === true ? "Yes" : "No";
 
         return {
             id: product.id,
@@ -28,8 +32,9 @@ async function getData(): Promise<Payment[]> {
             created_at: product.createdAt,
             stockQuantity,
             price: price.toNumber(),
+            isFeatured,
         };
-    });
+    });    
 }
 
 

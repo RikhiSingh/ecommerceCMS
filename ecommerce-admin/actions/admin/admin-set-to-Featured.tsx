@@ -2,12 +2,15 @@
 
 import prismadb from "@/lib/prismadb";
 
-export const adminDeleteProduct = async (productId: string) => {
+export const adminSetToFeatured = async (productId: string) => {
     try {
 
-        await prismadb.product.delete({
+        await prismadb.product.update({
             where: {
                 id: productId
+            },
+            data: {
+                isFeatured: true
             }
         })
     } catch (error) {

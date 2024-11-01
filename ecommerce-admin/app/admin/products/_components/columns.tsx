@@ -15,8 +15,9 @@ import toast from "react-hot-toast";
 import { AlertModal } from "@/components/modals/alert-modal";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import prismadb from "@/lib/prismadb";
 import { adminDeleteProduct } from "@/actions/admin/admin-deleteproduct";
+import { adminSetToFeatured } from "@/actions/admin/admin-set-to-Featured";
+import { adminRemoveFromFeatured } from "@/actions/admin/admin-remove-from-Featured";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -26,6 +27,7 @@ export type Payment = {
   created_at: Date;
   stockQuantity: number;
   price: number;
+  isFeatured: string;
 };
 
 const ActionsCell: React.FC<{ row: any }> = ({ row }) => {
@@ -41,7 +43,37 @@ const ActionsCell: React.FC<{ row: any }> = ({ row }) => {
       router.refresh();
       toast.success("Store deleted.");
     } catch (error) {
-      toast.error("Make sure you remove all the products and categories first.");
+      toast.error("Oops! Something went wrong.");
+    } finally {
+      setLoading(false)
+      setOpen(false)
+    }
+  }
+
+  const setToFeatured = async () => {
+    try{
+      setLoading(true)
+      adminSetToFeatured(row.original.id);
+      router.refresh();
+      toast.success("Product set to be featured.");
+    }
+    catch (error) {
+      toast.error("Opps! Something went wrong.");
+    } finally {
+      setLoading(false)
+      setOpen(false)
+    }
+  }
+
+  const removeFromFeatured = async () => {
+    try{
+      setLoading(true)
+      adminRemoveFromFeatured(row.original.id);
+      router.refresh();
+      toast.success("Product removed from featured.");
+    }
+    catch (error) {
+      toast.error("Opps! Something went wrong.");
     } finally {
       setLoading(false)
       setOpen(false)
@@ -66,6 +98,17 @@ const ActionsCell: React.FC<{ row: any }> = ({ row }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={() => setToFeatured()}
+          >
+            Set to be Featured
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => removeFromFeatured()}
+          >
+            Remove From Featured
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => setOpen(true)}
@@ -101,6 +144,10 @@ export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "stockQuantity",
     header: "Stock Quantity",
+  },
+  {
+    accessorKey: "isFeatured",
+    header: "Featured",
   },
   {
     accessorKey: "price",
