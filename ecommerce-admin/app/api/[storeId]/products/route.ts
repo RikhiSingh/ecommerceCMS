@@ -21,7 +21,7 @@ export async function POST(
             images,
             isFeatured,
             isArchived,
-            quantity
+            stockQuantity
         } = body;
 
         if (!userId) {
@@ -52,7 +52,7 @@ export async function POST(
             return new NextResponse("Color ID is required", { status: 400 });
         }
 
-        if (!quantity) {
+        if (!stockQuantity) {
             return new NextResponse("Quantity is required", { status: 400 });
         }
 
@@ -81,7 +81,7 @@ export async function POST(
                 categoryId,
                 colorId,
                 sizeId,
-                stockQuantity: quantity,
+                stockQuantity,
                 storeId: params.storeId,
                 images: {
                     createMany: {
@@ -111,7 +111,7 @@ export async function GET(
         const colorId = searchParams.get("colorId") || undefined;
         const sizeId = searchParams.get("sizeId") || undefined;
         const isFeatured = searchParams.get("isFeatured");
-        const quantity = searchParams.get("quantity");
+        const quantity = searchParams.get("stockQuantity");
 
         if (!params.storeId) {
             return new NextResponse("Store ID is required", { status: 400 });

@@ -52,7 +52,7 @@ export async function PATCH(
             images,
             isFeatured,
             isArchived,
-            quantity
+            stockQuantity
         } = body;
 
         if (!userId) {
@@ -83,7 +83,7 @@ export async function PATCH(
             return new NextResponse("Color ID is required", { status: 400 });
         }
 
-        if (!quantity) {
+        if (!stockQuantity) {
             return new NextResponse("Quantity is required", { status: 400 });
         }
 
@@ -117,7 +117,7 @@ export async function PATCH(
                 },
                 isFeatured,
                 isArchived,
-                stockQuantity: quantity
+                stockQuantity
             }
         });
 
