@@ -22,6 +22,11 @@ export function AdminMainNav({
             href: `/admin/stores`,
             label: 'Stores',
             active: pathname === `/admin/stores`,
+        },
+        {
+            href: `/admin/products`,
+            label: 'Products',
+            active: pathname === `/admin/products`,
         }
     ];
 
