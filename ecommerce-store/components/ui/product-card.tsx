@@ -10,6 +10,7 @@ import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import usePreviewModal from "@/hooks/use-preview-modal";
 import { useCart } from "@/context/CartContext";
+import toast from "react-hot-toast";
 
 interface ProductCard {
     data: Product;
@@ -44,6 +45,7 @@ const ProductCard: React.FC<ProductCard> = ({
           };
 
         cart.addItem(cartItem);
+        toast.success("Added to cart");
     }
     
     return (
