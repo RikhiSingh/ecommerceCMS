@@ -49,8 +49,14 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
             </div>
           </div>
           <div className="mt-4 sm:mt-0 sm:pr-9">
+            {/* Display  price for the item */}
+            Total Price:&nbsp;
+            <Currency value={data.quantity * data.price} />
+          </div>
+          <div className="pt-4 sm:pt-0 sm:pr-9">
             {/* Display total price for the item */}
-            <Currency value={data.price * data.quantity} />
+            Item Price:&nbsp;
+            <Currency value={data.price} />
           </div>
         </div>
       </div>
