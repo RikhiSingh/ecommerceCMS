@@ -8,7 +8,6 @@ import { toast } from "react-hot-toast";
 import Button from "@/components/ui/my-button";
 import Currency from "@/components/ui/currency";
 import { useCart } from "@/context/CartContext";
-import { CartItem } from "@/types";
 
 const Summary = () => {
     const searchParams = useSearchParams();

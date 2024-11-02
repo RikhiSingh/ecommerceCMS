@@ -1,91 +1,150 @@
-import Stripe from "stripe";
-import { NextResponse } from "next/server";
+// app/api/[storeId]/checkout/route.ts
 
-import { stripe } from "@/lib/stripe";
-import prismadb from "@/lib/prismadb";
-import { headers } from "next/headers";
+import { NextResponse } from 'next/server';
+import prismadb from '@/lib/prismadb'; // Adjust the path as necessary
+import { stripe } from '@/lib/stripe'; // Ensure Stripe is correctly initialized
+import { Stripe } from 'stripe';
 
-const corsHeader = {
-    // as one is on 3000 other on 3001
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+// Define allowed origins
+const allowedOrigins = ['http://localhost:3001']; // Add more origins as needed
+
+// CORS Headers
+const corsHeaders = {
+  'Access-Control-Allow-Origin': allowedOrigins[0],
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-export async function OPTIONS() {
-    // before post do options request
-    return NextResponse.json({}, { headers: corsHeader });
-};
+// Handle OPTIONS requests for CORS preflight
+export async function OPTIONS(request: Request, { params }: { params: { storeId: string } }) {
+  return new NextResponse(null, {
+    status: 200,
+    headers: corsHeaders,
+  });
+}
 
 export async function POST(
-    req: Request,
-    { params }: { params: { storeId: string } }
+  req: Request,
+  { params }: { params: { storeId: string } }
 ) {
-    // retreived from summary.tsx in frontend (in the cart)
-    const { productIds } = await req.json();
+  try {
+    // Parse the request body to extract items
+    const { items } = await req.json();
 
-    if (!productIds || productIds.length === 0) {
-        return new NextResponse("Product Ids are required", { status: 400 });
+    // Validate that items exist and is an array
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return new NextResponse(JSON.stringify({ error: 'No items provided for checkout.' }), {
+        status: 400,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json',
+        },
+      });
     }
 
+    // Extract product IDs from the items
+    const productIds = items.map((item: { productId: string }) => item.productId);
+
+    // Fetch products from the database
     const products = await prismadb.product.findMany({
-        where: {
-            id: {
-                in: productIds
-            }
-        }
-    });
-
-    // send to stripe
-    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = [];
-
-    products.forEach((product) => {
-        line_items.push({
-            quantity: 1,
-            price_data: {
-                currency: 'CAD',
-                product_data: {
-                    name: product.name,
-                },
-                unit_amount: product.price.toNumber() * 100
-            }
-        });
-    });
-
-    const order = await prismadb.order.create({
-        data: {
-            storeId: params.storeId,
-            // cuz its a checkout session
-            isPaid: false,
-            orderItems: {
-                create: productIds.map((productId: string) => ({
-                    product: {
-                        connect: {
-                            id: productId
-                        }
-                    }
-                }))
-            }
-        }
-    });
-
-    const session = await stripe.checkout.sessions.create({
-        line_items,
-        mode: "payment",
-        billing_address_collection: "required",
-        phone_number_collection: {
-            enabled: true
+      where: {
+        id: {
+          in: productIds,
         },
-        // the useeffect will understand its success
-        success_url: `${process.env.FRONTEND_STORE_URL}/cart?success=1`,
-        cancel_url: `${process.env.FRONTEND_STORE_URL}/cart?cancelled=1`,
-        metadata: {
-            // use the metadata to locate the order and change status to paid
-            orderId: order.id
-        }
+      },
     });
 
-    return NextResponse.json({ url: session.url }, {
-        headers: corsHeader
+    // Check if all products exist
+    if (products.length !== productIds.length) {
+      return new NextResponse(JSON.stringify({ error: 'Some products were not found.' }), {
+        status: 400,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    // Construct Stripe line items with quantities
+    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = products.map(
+      (product) => {
+        const item = items.find((i: { productId: string }) => i.productId === product.id);
+        return {
+          quantity: item?.quantity || 1, // Default to 1 if quantity is not provided
+          price_data: {
+            currency: 'CAD',
+            product_data: {
+              name: product.name,
+              // Optionally, add more product details like images
+              // images: [product.imageUrl],
+            },
+            unit_amount: Math.round(product.price.toNumber() * 100), // Convert to cents
+          },
+        };
+      }
+    );
+
+    // Create an order in the database
+    const order = await prismadb.order.create({
+      data: {
+        storeId: params.storeId,
+        isPaid: false,
+        orderItems: {
+          create: items.map((item: { productId: string; quantity: number }) => ({
+            product: {
+              connect: { id: item.productId },
+            },
+            quantity: item.quantity,
+          })),
+        },
+      },
     });
-};
+
+    // Create a Stripe checkout session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items,
+      mode: 'payment',
+      billing_address_collection: 'required',
+      phone_number_collection: {
+        enabled: true,
+      },
+      success_url: `${process.env.FRONTEND_STORE_URL}/cart?success=1`,
+      cancel_url: `${process.env.FRONTEND_STORE_URL}/cart?cancelled=1`,
+      metadata: {
+        orderId: order.id, // Embed order ID for post-payment processing
+      },
+    });
+
+    // Respond with the Stripe session URL
+    return new NextResponse(JSON.stringify({ url: session.url }), {
+      status: 200,
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (error) {
+    console.error('Checkout Error:', error);
+
+    // Handle known Stripe errors
+    if (error instanceof Stripe.errors.StripeError) {
+      return new NextResponse(JSON.stringify({ error: error.message }), {
+        status: 500,
+        headers: {
+          ...corsHeaders,
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
+    // Handle other errors
+    return new NextResponse(JSON.stringify({ error: 'Internal Server Error' }), {
+      status: 500,
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'application/json',
+      },
+    });
+  }
+}

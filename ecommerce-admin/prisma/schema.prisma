@@ -84,25 +84,25 @@ model Color {
 }
 
 model Product {
-  id          String       @id @default(uuid())
-  storeId     String
-  description String       @db.Text
-  store       Store        @relation("StoreToProduct", fields: [storeId], references: [id])
-  categoryId  String
-  category    Category     @relation("CategoryToProduct", fields: [categoryId], references: [id])
-  name        String
-  price       Decimal
-  isFeatured  Boolean      @default(false)
-  isArchived  Boolean      @default(false)
-  sizeId      String
-  size        Size         @relation(fields: [sizeId], references: [id])
-  colorId     String
-  color       Color        @relation(fields: [colorId], references: [id])
-  images      Image[]
-  orderItems  OrderItems[]
-  stockQuantity    Int          @default(1)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id            String       @id @default(uuid())
+  storeId       String
+  description   String       @db.Text
+  store         Store        @relation("StoreToProduct", fields: [storeId], references: [id])
+  categoryId    String
+  category      Category     @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  name          String
+  price         Decimal
+  isFeatured    Boolean      @default(false)
+  isArchived    Boolean      @default(false)
+  sizeId        String
+  size          Size         @relation(fields: [sizeId], references: [id])
+  colorId       String
+  color         Color        @relation(fields: [colorId], references: [id])
+  images        Image[]
+  orderItems    OrderItems[]
+  stockQuantity Int          @default(1)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 
   @@index([storeId])
   @@index([categoryId])
@@ -142,6 +142,7 @@ model OrderItems {
   order     Order   @relation(fields: [orderId], references: [id])
   productId String
   product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1) // Added quantity field with a default value
 
   @@index([orderId])
   @@index([productId])
