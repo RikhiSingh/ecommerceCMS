@@ -1,11 +1,14 @@
+import prismadb from "@/lib/prismadb";
 import { Category } from "@/types";
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/categories`;
-
 const getCategories = async (): Promise<Category[]> =>{
-    const res = await fetch(URL);
+    const categories = await prismadb.category.findMany({
+        include: {
+            billboard: true,
+        },
+    });
 
-    return res.json();
+    return categories;
 }
 
 export default getCategories;
