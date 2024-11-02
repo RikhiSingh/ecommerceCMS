@@ -1,11 +1,10 @@
+import prismadb from "@/lib/prismadb";
 import { Color } from "@/types";
 
-const URL = `${process.env.NEXT_PUBLIC_API_URL}/colors`;
-
 const getColors = async (): Promise<Color[]> =>{
-    const res = await fetch(URL);
+    const colors = await prismadb.color.findMany({});
 
-    return res.json();
+    return colors;
 }
 
 export default getColors;
