@@ -48,7 +48,7 @@ const MobileMainNav: React.FC<MobileMainNavProps> = ({ data }) => {
 
                 {/* Dialog position */}
                 <div className="fixed inset-0 z-40 flex">
-                    <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-6 shadow-xl">
+                    <Dialog.Panel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white dark:bg-black py-4 pb-6 shadow-xl">
                         {/* Close Button */}
                         <div className="flex items-center justify-end px-4 mb-6">
                             <IconButton
@@ -68,7 +68,7 @@ const MobileMainNav: React.FC<MobileMainNavProps> = ({ data }) => {
                                         key={route.href}
                                         href={route.href}
                                         className={cn(
-                                            "text-xl font-medium transition-colors pl-4 hover:text-black",
+                                            "text-xl font-medium transition-colors pl-4 hover:text-black dark:hover:text-white",
                                             route.active ? "text-black font-bold" : "text-neutral-500"
                                         )}
                                         onClick={onClose}

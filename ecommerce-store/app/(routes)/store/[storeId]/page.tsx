@@ -29,7 +29,7 @@ const StoreProdcutPage: React.FC<StoreProdcutPageProps> = async ({
 
     return (
         <Container>
-            <div className="bg-white">
+            <div className="bg-white dark:bg-black">
                 <div className="px-4 sm:px-6 lg:px-8 pb-24">
                     <div className="h-[150px] bg-red-300 rounded-b-xl flex justify-center items-center text-white p-10 mb-4">
                         <p className="text-6xl font-extrabold">

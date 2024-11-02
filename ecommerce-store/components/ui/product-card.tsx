@@ -49,7 +49,7 @@ const ProductCard: React.FC<ProductCard> = ({
     }
     
     return (
-        <div onClick={handleClick} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
+        <div onClick={handleClick} className="bg-white dark:bg-black group cursor-pointer rounded-xl border p-3 space-y-4">
             {/* Images and actions */}
             <div className="aspect-square rounded-xl bg-gray-100 relative">
                 <Image
@@ -62,11 +62,11 @@ const ProductCard: React.FC<ProductCard> = ({
                     <div className="flex gap-x-6 justify-center">
                         <IconButton
                             onClick={onPreview}
-                            icon={<Expand size={20} className="text-gray-600" />}
+                            icon={<Expand size={20} className="text-gray-600 dark:text-white" />}
                         />
                         <IconButton
                             onClick={onAddToCart}
-                            icon={<ShoppingCart size={20} className="text-gray-600" />}
+                            icon={<ShoppingCart size={20} className="text-gray-600 dark:text-white" />}
                         />
                     </div>
                 </div>
@@ -76,7 +76,7 @@ const ProductCard: React.FC<ProductCard> = ({
                 <p className="font-semibold text-lg">
                     {data.name}
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-white">
                     {data.category?.name}
                 </p>
             </div>
