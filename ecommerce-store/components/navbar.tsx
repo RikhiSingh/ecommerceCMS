@@ -19,7 +19,7 @@ const Navbar = async () => {
                 <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center">
                     <MobileMainNav data={categories} />
                     <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
-                        <p className="font-bold text-red-700 text-xl flex flex-row items-center gap-x-2">
+                        <p className="font-extrabold text-green-800 text-xl flex flex-row items-center gap-x-2">
                             <Hop />
                             CommunoCart
                         </p>

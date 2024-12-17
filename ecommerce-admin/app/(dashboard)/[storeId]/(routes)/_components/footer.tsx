@@ -16,21 +16,6 @@ const Footer = () => {
                 <p className="text-center text-xs md:text-sm">
                   &copy; CommunoCart 2024. &nbsp;&nbsp; All rights reserved.
                 </p>
-                {/* Optional Terms and Privacy Links */}
-                <div className="flex space-x-4 mt-2 md:mt-0">
-                  <Link
-                    href="/terms"
-                    className="text-gray-600 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300"
-                  >
-                    Terms of Service
-                  </Link>
-                  <Link
-                    href="/privacy"
-                    className="text-gray-600 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300"
-                  >
-                    Privacy Policy
-                  </Link>
-                </div>
               </div>
 
               {/* Social Media Icons */}

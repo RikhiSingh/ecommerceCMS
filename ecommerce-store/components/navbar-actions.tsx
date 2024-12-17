@@ -27,7 +27,7 @@ const NavbarActions = () => {
     return (
         <div className="ml-auto flex items-center gap-x-4">
             {/* <ModeToggle /> */}
-            <Button onClick={() => router.push("/cart")} className="flex items-center rounded-full bg-black px-4 py-2 dark:border dark:border-input dark:bg-background dark:shadow-sm dark:hover:bg-accent dark:hover:text-accent-foreground">
+            <Button onClick={() => router.push("/cart")} className="flex items-center rounded-full bg-green-800 px-4 py-2 dark:border dark:border-input dark:bg-background dark:shadow-sm dark:hover:bg-accent dark:hover:text-accent-foreground">
                 <ShoppingBag
                     size={20}
                     color="white"
