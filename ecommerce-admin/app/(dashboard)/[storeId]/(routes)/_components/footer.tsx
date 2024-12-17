@@ -4,7 +4,7 @@ import Container from "./container";
 
 const Footer = () => {
   return (
-    <div className="border-t bg-gray-900 text-white">
+    <div className="border-t bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200 mt-20">
       <Container>
         <footer>
           <div className="container mx-auto py-10 px-4">
@@ -20,13 +20,13 @@ const Footer = () => {
                 <div className="flex space-x-4 mt-2 md:mt-0">
                   <Link
                     href="/terms"
-                    className="text-gray-400 hover:text-gray-300"
+                    className="text-gray-600 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300"
                   >
                     Terms of Service
                   </Link>
                   <Link
                     href="/privacy"
-                    className="text-gray-400 hover:text-gray-300"
+                    className="text-gray-600 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300"
                   >
                     Privacy Policy
                   </Link>
@@ -37,13 +37,13 @@ const Footer = () => {
               <div className="text-center md:text-right">
                 <div className="flex justify-center md:justify-end space-x-6">
                   <Link href="#" aria-label="Facebook">
-                    <Facebook className="text-gray-400 hover:text-gray-300 transition-colors" />
+                    <Facebook className="text-gray-600 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 transition-colors" />
                   </Link>
                   <Link href="#" aria-label="Twitter">
-                    <Twitter className="text-gray-400 hover:text-gray-300 transition-colors" />
+                    <Twitter className="text-gray-600 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 transition-colors" />
                   </Link>
                   <Link href="#" aria-label="Instagram">
-                    <Instagram className="text-gray-400 hover:text-gray-300 transition-colors" />
+                    <Instagram className="text-gray-600 hover:text-gray-500 dark:text-gray-400 dark:hover:text-gray-300 transition-colors" />
                   </Link>
                 </div>
               </div>
