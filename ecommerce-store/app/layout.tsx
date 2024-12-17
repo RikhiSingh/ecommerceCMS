@@ -25,12 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <ThemeProvider
+        {/* <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
-        >
+        > */}
           <CartProvider>
             <ModalProvider />
             <ToastProvider />
@@ -38,7 +38,7 @@ export default function RootLayout({
             {children}
             <Footer />
           </CartProvider>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );
