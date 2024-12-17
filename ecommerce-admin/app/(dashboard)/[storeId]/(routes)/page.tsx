@@ -9,6 +9,7 @@ import { getSalesCount } from "@/actions/get-sales-count";
 import { getStockCount } from "@/actions/get-stock-count";
 import { Overview } from "@/components/overview";
 import { getGraphRevenue } from "@/actions/get-graph-revenue";
+import Footer from "./_components/footer";
 
 interface DashboardPageProps {
     params: { storeId: string }
@@ -82,6 +83,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({
                     </CardContent>
                 </Card>
             </div>
+            <Footer />
         </div>
     );
 }
