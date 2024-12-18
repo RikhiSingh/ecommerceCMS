@@ -25,13 +25,14 @@ const HomePage = async () => {
     <>
       <Banner />
       <Container>
-          <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-            <StoreLocator />
-            <Hero />
-            <Separator />
+        <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
+          <StoreLocator />
+          <Hero />
+          <div className="px-12">
             <ProductList title="Featured Products" items={products} />
-            <FAQSection />
           </div>
+          <FAQSection />
+        </div>
       </Container>
     </>
   );

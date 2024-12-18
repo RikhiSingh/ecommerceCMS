@@ -69,7 +69,7 @@ const Info: React.FC<InfoProps> = ({
                 </div>
             </div>
             <div className="mt-10 flex items-center gap-x-3">
-                <Button onClick={onAddToCart} className="flex items-center gap-x-2 dark:bg-white dark:text-black">
+                <Button onClick={onAddToCart} className="flex items-center gap-x-2 bg-green-800">
                     Add to Cart
                     <ShoppingCart />
                 </Button>

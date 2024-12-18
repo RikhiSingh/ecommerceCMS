@@ -9,11 +9,9 @@ import 'leaflet/dist/leaflet.css';
 
 import { Store } from '@/types';
 
-// Define a type for stores with non-null coords
 type StoreWithCoords = Store & {
     coords: { lat: number; lng: number };
 };
-
 
 const MapComponent = ({ stores }: { stores: Store[] }) => {
     const storeLinkPrefix = "/store/";
@@ -38,44 +36,46 @@ const MapComponent = ({ stores }: { stores: Store[] }) => {
         fetchCoordinates();
     }, [stores]);
 
-    // Memoize the custom icon to improve performance
     const customMarkerIcon = useMemo(
         () =>
             L.divIcon({
                 className: 'custom-marker-icon',
                 html: renderToStaticMarkup(<MapPin color="red" size={32} />),
                 iconSize: [32, 32],
-                iconAnchor: [16, 32], // Adjust anchor to the bottom center
-                popupAnchor: [0, -32], // Adjust popup position
+                iconAnchor: [16, 32],
+                popupAnchor: [0, -32],
             }),
         []
     );
 
     return (
-        <MapContainer
-            center={[43.7, -79.4]}  // Centered on Canada
-            zoom={7}
-            style={{ height: '500px', width: '100%' }}
-        >
-            <TileLayer
-                attribution="&copy; OpenStreetMap contributors"
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {storeLocations.map((store) => (
-                <Marker
-                    key={store.id}
-                    position={[store.coords.lat, store.coords.lng]}
-                    icon={customMarkerIcon}
-                >
-                    <Popup>
-                        <a href={`${storeLinkPrefix}${store.id}`} className='flex flex-row items-center gap-2 justify-center underline'>
-                            <StoreIcon />
-                            {store.name.toUpperCase()}
-                        </a>
-                    </Popup>
-                </Marker>
-            ))}
-        </MapContainer>
+        <div className="mt-4 mx-4">
+            <MapContainer
+                center={[43.7, -79.4]}
+                zoom={7}
+                className="rounded-lg"
+                style={{ height: '500px', width: '100%' }}
+            >
+                <TileLayer
+                    attribution="&copy; OpenStreetMap contributors"
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                {storeLocations.map((store) => (
+                    <Marker
+                        key={store.id}
+                        position={[store.coords.lat, store.coords.lng]}
+                        icon={customMarkerIcon}
+                    >
+                        <Popup className="text-center">
+                            <a href={`${storeLinkPrefix}${store.id}`} className='flex flex-row items-center gap-2 justify-center underline text-[#f89114]'>
+                                <StoreIcon />
+                                {store.name.toUpperCase()}
+                            </a>
+                        </Popup>
+                    </Marker>
+                ))}
+            </MapContainer>
+        </div>
     );
 };
 

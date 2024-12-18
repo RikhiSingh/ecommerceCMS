@@ -117,7 +117,7 @@ const TopCards: React.FC = () => {
 
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">
-      <Heading title="CommunmoCart AI" titleDescription="AI To do whatever here Lmao lorem can be here too kekw" />
+      <Heading title="CommunmoCart AI" titleDescription="CommunoCart AI: Empowering farmers with smart crop recommendations based on real-time weather, soil, and growing conditions!" />
       <Separator />
       <div className='flex gap-2'>
         <div className="grid gap-4 grid-cols-1 w-1/3">
