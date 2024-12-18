@@ -1,5 +1,4 @@
 import getCategory from "@/actions/get-category";
-import getColors from "@/actions/get-color";
 import getProducts from "@/actions/get-products";
 import getSizes from "@/actions/get-sizes";
 import Container from "@/components/ui/container";
@@ -18,7 +17,6 @@ interface CategoryPageProps {
         categoryId: string;
     },
     searchParams: {
-        colorId: string;
         sizeId: string;
     }
 }
@@ -30,14 +28,12 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     // console.log("CategoryPage component loaded");
     const products = await getProducts({
         categoryId: params.categoryId,
-        // colorId: searchParams.colorId,
         // sizeId: searchParams.sizeId
     }) || []; // Ensure products is always an array
 
     // console.log("Fetched products:", products); 
 
     const sizes = await getSizes();
-    const colors = await getColors();
     const category = await getCategory(params.categoryId);
 
     const featuredProducts = await getProducts({ isFeatured: true });
@@ -52,17 +48,12 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                         </p>
                     </div>
                     <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
-                        <MobileFilters sizes={sizes} colors={colors} />
+                        <MobileFilters sizes={sizes} />
                         <div className="hidden lg:block">
                             <Filter
                                 valueKey="sizeId"
                                 name="Sizes"
                                 data={sizes}
-                            />
-                            <Filter
-                                valueKey="colorId"
-                                name="Colors"
-                                data={colors}
                             />
                         </div>
                         <div className="mt-6 lg:col-span-4 lg:mt-0">

@@ -13,8 +13,7 @@ export const getStoreProducts = async (storeId: string): Promise<Product[]> => {
                     billboard: true
                 }
             }, // Includes the related Category data
-            size: true,     // Includes the related Size data
-            color: true,    // Includes the related Color data
+            size: true,     // Includes the related Color data
             images: true,
         }
     });
@@ -28,7 +27,6 @@ export const getStoreProducts = async (storeId: string): Promise<Product[]> => {
         stockQuantity: product.stockQuantity,
         isFeatured: product.isFeatured,
         size: product.size as Product["size"],
-        color: product.color as Product["color"],
         images: product.images as Product["images"],
     }));
 
