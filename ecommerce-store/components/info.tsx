@@ -39,7 +39,6 @@ const Info: React.FC<InfoProps> = ({ data }) => {
       <div className="mt-3 flex items-end justify-between">
         <p className="text-2xl text-gray-900 dark:text-white">
           <Currency value={data?.price} />
-          <span className="ml-2 text-sm text-gray-600">/lb</span>
         </p>
       </div>
       <hr className="my-4" />

@@ -141,13 +141,13 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({
                     </Button>
                 </form>
             </Form>
-            <Separator />
+            {/* <Separator />
             <ApiAlert
                 title="NEXT_PUBLIC_API_URL"
                 // not use origin if not imported from useorigin ensure no hydration error
                 description={`${origin}/api/${params.storeId}`}
                 variant="public"
-            />
+            /> */}
         </>
     )
 }
