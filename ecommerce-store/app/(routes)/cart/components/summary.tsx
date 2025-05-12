@@ -85,7 +85,7 @@ const Summary = () => {
                 onClick={onCheckout}
                 className="w-full mt-6 bg-green-800 hover:bg-green-600"
             >
-                Checkout
+                Place Order
             </Button>
         </div>
     );
