@@ -19,24 +19,25 @@ model Store {
   name       String
   userId     String
   location   String
+  imageUrl   String
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
   billboards Billboard[] @relation("StoreToBillboard")
   categories Category[]  @relation("StoreToCategory")
   sizes      Size[]      @relation("StoreToSize")
   products   Product[]   @relation("StoreToProduct")
   orders     Order[]     @relation("StoreToOrder")
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
 }
 
 model Billboard {
   id         String     @id @default(uuid())
   storeId    String
-  store      Store      @relation("StoreToBillboard", fields: [storeId], references: [id])
   label      String
   imageUrl   String
-  categories Category[]
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
+  store      Store      @relation("StoreToBillboard", fields: [storeId], references: [id])
+  categories Category[]
 
   @@index([storeId])
 }
@@ -44,13 +45,13 @@ model Billboard {
 model Category {
   id          String    @id @default(uuid())
   storeId     String
-  store       Store     @relation("StoreToCategory", fields: [storeId], references: [id])
   billboardId String
-  billboard   Billboard @relation(fields: [billboardId], references: [id])
-  products    Product[] @relation("CategoryToProduct")
   name        String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  store       Store     @relation("StoreToCategory", fields: [storeId], references: [id])
+  billboard   Billboard @relation(fields: [billboardId], references: [id])
+  products    Product[] @relation("CategoryToProduct")
 
   @@index([storeId])
   @@index([billboardId])
@@ -59,12 +60,12 @@ model Category {
 model Size {
   id        String    @id @default(uuid())
   storeId   String
-  store     Store     @relation("StoreToSize", fields: [storeId], references: [id])
   name      String
   value     String
-  products  Product[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  store     Store     @relation("StoreToSize", fields: [storeId], references: [id])
+  products  Product[]
 
   @@index([storeId])
 }
@@ -73,20 +74,21 @@ model Product {
   id            String       @id @default(uuid())
   storeId       String
   description   String       @db.Text
-  store         Store        @relation("StoreToProduct", fields: [storeId], references: [id])
   categoryId    String
-  category      Category     @relation("CategoryToProduct", fields: [categoryId], references: [id])
   name          String
   price         Decimal
   isFeatured    Boolean      @default(false)
   isArchived    Boolean      @default(false)
   sizeId        String
-  size          Size         @relation(fields: [sizeId], references: [id])
-  images        Image[]
-  orderItems    OrderItems[]
+  phoneNo       Int
   stockQuantity Int          @default(1)
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
+  store         Store        @relation("StoreToProduct", fields: [storeId], references: [id])
+  category      Category     @relation("CategoryToProduct", fields: [categoryId], references: [id])
+  size          Size         @relation(fields: [sizeId], references: [id])
+  images        Image[]
+  orderItems    OrderItems[]
 
   @@index([storeId])
   @@index([categoryId])
@@ -96,11 +98,10 @@ model Product {
 model Image {
   id        String   @id @default(uuid())
   productId String
-  // ondelete so we can delete even without all the images
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   url       String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   @@index([productId])
 }
@@ -108,13 +109,13 @@ model Image {
 model Order {
   id         String       @id @default(uuid())
   storeId    String
-  store      Store        @relation("StoreToOrder", fields: [storeId], references: [id])
-  orderItems OrderItems[]
   isPaid     Boolean      @default(false)
   phone      String       @default("")
   address    String       @default("")
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
+  store      Store        @relation("StoreToOrder", fields: [storeId], references: [id])
+  orderItems OrderItems[]
 
   @@index([storeId])
 }
@@ -122,10 +123,10 @@ model Order {
 model OrderItems {
   id        String  @id @default(uuid())
   orderId   String
-  order     Order   @relation(fields: [orderId], references: [id])
   productId String
+  quantity  Int     @default(1)
+  order     Order   @relation(fields: [orderId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
-  quantity  Int     @default(1) // Added quantity field with a default value
 
   @@index([orderId])
   @@index([productId])

@@ -37,7 +37,7 @@ const Hero = async () => {
                       <Image
                         width={200}
                         height={200}
-                        src={"/img/stores/store-one.webp"}
+                        src={store.imageUrl}
                         alt={store.name}
                         className="w-full h-full object-cover rounded-lg"
                       />
